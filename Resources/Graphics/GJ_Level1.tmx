@@ -3,13 +3,37 @@
  <tileset firstgid="1" name="Tiles_V1" tilewidth="64" tileheight="64">
   <image source="tiles_v1.png" width="128" height="320"/>
  </tileset>
+ <tileset firstgid="11" name="metaTiles_v1" tilewidth="64" tileheight="64">
+  <image source="metaTiles_v1.png" width="320" height="64"/>
+  <tile id="4">
+   <properties>
+    <property name="Stop" value="True"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="16" name="Tiles_V2" tilewidth="64" tileheight="64">
+  <image source="tiles_v2.png" width="321" height="192"/>
+ </tileset>
  <objectgroup color="#ebe8e6" name="Objects">
-  <object name="BlueSpawn" x="256" y="448" width="64" height="64"/>
-  <object name="BlueSpawn" x="448" y="448" width="64" height="64"/>
+  <object name="BlueSpawn" x="256" y="448" width="64" height="64">
+   <properties>
+    <property name="Stop" value="True"/>
+   </properties>
+  </object>
+  <object name="BlueSpawn" x="448" y="448" width="64" height="64">
+   <properties>
+    <property name="Stop" value="True"/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="Tile Layer 1" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBi8gAkHxqeeGLHBrJ4U/w4GAAAvkAAp
+   eJxjYBi8QBQHxqeeGLHBrJ4U/w4GAADeFwGl
+  </data>
+ </layer>
+ <layer name="Meta" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJxjYBi8gB8HxqeeGLHBrJ4U/w4GAABWJwEt
   </data>
  </layer>
 </map>

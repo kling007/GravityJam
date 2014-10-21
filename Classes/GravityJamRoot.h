@@ -5,11 +5,12 @@
 #include "GJ_Settings.h"
 #include "GJ_HUD.h"
 #include "VisibleRect.h"
+#include "GJ_Level.h"
 
 USING_NS_CC;
 
-class GravityJamRoot : public cocos2d::Layer
-{
+class GravityJamRoot : public cocos2d::Layer {
+    
 public:
     
     // the Scene object that this class manages
@@ -17,12 +18,21 @@ public:
     
     virtual bool init();
     
+    // Touch handling
+    bool setupTouches();
+    int getTouchDirection();
+    EventListenerTouchOneByOne * touchListener;
+    Vec2 touchBegin;
+    Vec2 touchEnd;
+    
     // theHUD
     GJ_HUD theHUD;
     bool initHUD();
     
     // level maps
-    bool initLevel(int level);
+    Level theLevel;
+    bool initLevel(int levelNum);
+    bool closeLevel();
     
     // off switch callback method (func)
     void menuCloseCallback(cocos2d::Ref* pSender);

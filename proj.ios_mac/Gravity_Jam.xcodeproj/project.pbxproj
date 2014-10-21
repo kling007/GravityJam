@@ -38,6 +38,8 @@
 		2A2CE04619EC8706003EEB14 /* GJ_Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE04419EC8706003EEB14 /* GJ_Settings.cpp */; };
 		2A2CE04819ED03D4003EEB14 /* blueTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE04719ED03D4003EEB14 /* blueTile.png */; };
 		2A2CE04919ED03D4003EEB14 /* blueTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE04719ED03D4003EEB14 /* blueTile.png */; };
+		2A6C643119F0E5FA000E50B6 /* GJ_Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */; };
+		2A6C643219F0E5FA000E50B6 /* GJ_Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
@@ -252,6 +254,8 @@
 		2A2CE04019EC7169003EEB14 /* GJ_Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GJ_Settings.h; path = ../Classes/GJ_Settings.h; sourceTree = "<group>"; };
 		2A2CE04419EC8706003EEB14 /* GJ_Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Settings.cpp; path = ../Classes/GJ_Settings.cpp; sourceTree = "<group>"; };
 		2A2CE04719ED03D4003EEB14 /* blueTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueTile.png; sourceTree = "<group>"; };
+		2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Level.cpp; path = ../Classes/GJ_Level.cpp; sourceTree = "<group>"; };
+		2A6C643019F0E5FA000E50B6 /* GJ_Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_Level.h; path = ../Classes/GJ_Level.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -372,6 +376,8 @@
 				2A2CE03919EB55C8003EEB14 /* VisibleRect.h */,
 				2A2CE04019EC7169003EEB14 /* GJ_Settings.h */,
 				2A2CE04419EC8706003EEB14 /* GJ_Settings.cpp */,
+				2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */,
+				2A6C643019F0E5FA000E50B6 /* GJ_Level.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -712,6 +718,7 @@
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				2A2CE03619EB3A4B003EEB14 /* GJ_Score.cpp in Sources */,
 				2A2CE03A19EB55C8003EEB14 /* VisibleRect.cpp in Sources */,
+				2A6C643119F0E5FA000E50B6 /* GJ_Level.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				2A2CE04519EC8706003EEB14 /* GJ_Settings.cpp in Sources */,
@@ -728,6 +735,7 @@
 				2A2CE03B19EB55C8003EEB14 /* VisibleRect.cpp in Sources */,
 				5087E75817EB910900C73F5D /* GravityJamRoot.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				2A6C643219F0E5FA000E50B6 /* GJ_Level.cpp in Sources */,
 				2A2CE04619EC8706003EEB14 /* GJ_Settings.cpp in Sources */,
 				2A2CE03719EB3A4B003EEB14 /* GJ_Score.cpp in Sources */,
 			);
@@ -802,7 +810,7 @@
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					USE_FILE32API,
 					CC_TARGET_OS_IPHONE,
-					"COCOS2D_DEBUG=1",
+					"COCOS2D_DEBUG=2",
 					"CC_ENABLE_CHIPMUNK_INTEGRATION=1",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
