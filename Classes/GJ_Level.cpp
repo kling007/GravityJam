@@ -90,13 +90,14 @@ bool Level::createPuzzleTiles()
     // This is where different tiles are found in the map and their sprites created
     // range-based for loop, lambda to create, set properties, and push back tiles
     
-    auto createTile = [&](std::string tileType, Vec2 loc){
+    auto createPuzzleTile = [&](std::string tileType, Vec2 loc){
         
         Sprite * temp = Sprite::create(tileType);
         temp->setPosition(loc);
         temp->setAnchorPoint(Vec2(0,0));
         tileMap->addChild(temp, 0);
         puzzleTiles.push_back(temp);
+        theMap->setTileOccupied(tileCoordForPosition(loc));
     };
     
     // determine color property, get coords, create tile
@@ -109,15 +110,15 @@ bool Level::createPuzzleTiles()
         // would a switch be more efficient? this seems pretty good
         if(tileType == "BlueSpawn")
         {
-            createTile("blueTile.png", Vec2(x,y));
+            createPuzzleTile("blueTile.png", Vec2(x,y));
         } else if (tileType == "RedSpawn"){
-            createTile("redTile.png", Vec2(x,y));
+            createPuzzleTile("redTile.png", Vec2(x,y));
         } else if (tileType == "GreenSpawn"){
-            createTile("greenTile.png", Vec2(x,y));
+            createPuzzleTile("greenTile.png", Vec2(x,y));
         } else if (tileType == "YellowSpawn"){
-            createTile("greenTile.png", Vec2(x,y));
+            createPuzzleTile("greenTile.png", Vec2(x,y));
         } else if (tileType == "OrangeSpawn"){
-            createTile("orangeTile.png", Vec2(x,y));
+            createPuzzleTile("orangeTile.png", Vec2(x,y));
         } else {
             CCLOG("Unrecognized Tile type '%s' at %i, %i \n", v->at("name").asString().c_str(), x, y);
         }
@@ -128,7 +129,66 @@ bool Level::createPuzzleTiles()
 
 bool Level::createPassiveTiles()
 {
-    // place tiles that don't dissappear, right now they are painted on the bkgnd
+    ValueMap * v;
+    int x, y = 0;
+    Size mapSize = tileMap->getMapSize();
+    
+    // reserve the Sprite array
+    passiveTiles.reserve(numTiles);
+    
+    // passive tiles are on the meta layer
+    // Passive tiles don't really get sprites if they are in the design
+    // create a lambda to handle the various types of tiles
+    
+    // create any tiles we need, update the map state
+    
+    auto createPassiveTile = [&](std::string tileType, Vec2 loc){
+        
+        //Sprite * temp = Sprite::create(tileType);
+        //temp->setPosition(loc);
+        //temp->setAnchorPoint(Vec2(0,0));
+        //tileMap->addChild(temp, 0);
+        //passiveTiles.push_back(temp);
+        theMap->setTileStop(loc);
+    };
+    
+    //int i,j = 0;
+    ValueMap tileProperties;
+    int theGID;
+    
+    // determine properties, get coords, add tile
+    // for each in meta layer ( same size as mapState obj )
+    // tileMap->propertiesForGID(TMXLayer->getTileGIDAt(i,j))
+    // createPassiveTile per the properties therein
+    for (int i=0;i<mapSize.height; i++)
+    {
+        for (int j=0; j<mapSize.width; j++)
+        {
+            Vec2 testLoc = Vec2(i, j);
+            theGID = metaLayer->getTileGIDAt(testLoc);
+            tileProperties = (tileMap->getPropertiesForGID(theGID)).asValueMap();
+            CCLOG("metaLayer[%i][%i]", i,j);
+            CCLOG("GID: %i\n", theGID);
+            if (theGID != 0) {
+                // it isn't empty lets see what properties it has
+                // can there be any bullshit more brittle than a goddamn strcmp on the contents of an external file
+                // there has got to be a better goddamn way
+                
+                if (tileProperties.at("Stop").asString()=="True") {
+                    createPassiveTile("Stop", testLoc);
+                }
+            }
+/*            auto prop = tileProperties.at("name").asString();
+            // would a switch be more efficient? this seems pretty good
+            if(prop == "Stop")
+            {
+                createPassiveTile("blueTile.png", Vec2(x,y));
+            } else {
+                CCLOG("Unrecognized Tile type '%s' at %i, %i \n", v->at("name").asString().c_str(), x, y);
+  */
+        }
+    }
+    
     return true;
 }
 
@@ -147,6 +207,7 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
     // place the tilemap
     // need to match the incoming levelNumber with the .tmx filename
     
+    theMap = new MapState();
     tileMap = TMXTiledMap::create("Graphics/GJ_Level1.tmx");
     background = tileMap->getLayer("Background");
     metaLayer = tileMap->getLayer("Meta");
@@ -161,10 +222,14 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
     Size mapSize = tileMap->getMapSize();
     numTiles = ceil(mapSize.height*mapSize.width);
     tm_scale = 0.375*parentVisibleSize.width/tileMap->getContentSize().width;
-
+    
+    // init our map state tracking data structure
+    // actual initial state is created in the create funcs below
+    theMap->initMap(mapSize);
     
     if (!createPassiveTiles()) {
         CCLOG("Error creating passive tiles!");
+        return false;
     }
     
     if(!createPuzzleTiles()){
@@ -184,6 +249,11 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
 
 bool Level::unloadLevel()
 {
+    if(!puzzleTiles.empty()||!passiveTiles.empty())
+    {
+        this->clearAllTiles();
+    }
+    
     return true;
 }
 
@@ -191,7 +261,7 @@ bool Level::unloadLevel()
 
 Vec2 Level::tileCoordForPosition(Vec2 position)
 {
-// this is suspect
+    // this is suspect
     int tileWidth = tileMap->getTileSize().width;
     int tileHeight = tileMap->getTileSize().height;
     
@@ -200,8 +270,8 @@ Vec2 Level::tileCoordForPosition(Vec2 position)
     int y = position.y / tileHeight;
     
     return Vec2(x, y);
-
-    return position;
+    // Why is this here: ?
+    // return position;
  }
 
 Vec2 Level::getAdjacentPxCoord(Vec2 inCoord, int direction)
@@ -241,18 +311,13 @@ bool Level::getStopProp(Vec2 toCoord)
 {
     Vec2 tileCoord = this->tileCoordForPosition(toCoord);
     bool stopVal = false;
-    int tileGid = metaLayer->getTileGIDAt(tileCoord);
     
-    if (tileGid) {
-        Value properties = tileMap->getPropertiesForGID(tileGid);
-        stopVal = properties.asValueMap().at("Stop").asBool();
-    } else if (tileGid == 0)
-    {
-        // empty tile
-        stopVal = false;
+    if (!theMap->isLocInRange(toCoord)) {
+        // if the tile is out of range, please stop
+        CCLOG("Tile reached edge of map! Check the level tmx.");
+        return true;
     }
-    
-    // there must be a safer way - what if we pass a bad location?
+    stopVal = theMap->isTileStop(tileCoord);
     
     return stopVal;
 }
@@ -263,7 +328,7 @@ void Level::createPuzzleTileMove(Sprite * theTile, int direction)
     Vec2 currentPos = theTile->getPosition();
     Vec2 nextPos;
     
-    // while we haven't found a stop tile
+    // while we haven't found a stop tile, keep it moving
     while (!stopped) {
         nextPos.set(getAdjacentPxCoord(currentPos, direction));
         

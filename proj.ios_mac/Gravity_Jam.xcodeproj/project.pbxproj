@@ -38,6 +38,8 @@
 		2A2CE04619EC8706003EEB14 /* GJ_Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE04419EC8706003EEB14 /* GJ_Settings.cpp */; };
 		2A2CE04819ED03D4003EEB14 /* blueTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE04719ED03D4003EEB14 /* blueTile.png */; };
 		2A2CE04919ED03D4003EEB14 /* blueTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE04719ED03D4003EEB14 /* blueTile.png */; };
+		2A40ABB819F62835007E6402 /* GJ_TileState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A40ABB619F62835007E6402 /* GJ_TileState.cpp */; };
+		2A40ABB919F62835007E6402 /* GJ_TileState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A40ABB619F62835007E6402 /* GJ_TileState.cpp */; };
 		2A6C643119F0E5FA000E50B6 /* GJ_Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */; };
 		2A6C643219F0E5FA000E50B6 /* GJ_Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
@@ -254,6 +256,8 @@
 		2A2CE04019EC7169003EEB14 /* GJ_Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GJ_Settings.h; path = ../Classes/GJ_Settings.h; sourceTree = "<group>"; };
 		2A2CE04419EC8706003EEB14 /* GJ_Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Settings.cpp; path = ../Classes/GJ_Settings.cpp; sourceTree = "<group>"; };
 		2A2CE04719ED03D4003EEB14 /* blueTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueTile.png; sourceTree = "<group>"; };
+		2A40ABB619F62835007E6402 /* GJ_TileState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_TileState.cpp; path = ../Classes/GJ_TileState.cpp; sourceTree = "<group>"; };
+		2A40ABB719F62835007E6402 /* GJ_TileState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_TileState.h; path = ../Classes/GJ_TileState.h; sourceTree = "<group>"; };
 		2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Level.cpp; path = ../Classes/GJ_Level.cpp; sourceTree = "<group>"; };
 		2A6C643019F0E5FA000E50B6 /* GJ_Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_Level.h; path = ../Classes/GJ_Level.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
@@ -378,6 +382,8 @@
 				2A2CE04419EC8706003EEB14 /* GJ_Settings.cpp */,
 				2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */,
 				2A6C643019F0E5FA000E50B6 /* GJ_Level.h */,
+				2A40ABB619F62835007E6402 /* GJ_TileState.cpp */,
+				2A40ABB719F62835007E6402 /* GJ_TileState.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -720,6 +726,7 @@
 				2A2CE03A19EB55C8003EEB14 /* VisibleRect.cpp in Sources */,
 				2A6C643119F0E5FA000E50B6 /* GJ_Level.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
+				2A40ABB819F62835007E6402 /* GJ_TileState.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				2A2CE04519EC8706003EEB14 /* GJ_Settings.cpp in Sources */,
 				1AFAF8B816D35DE700DB1158 /* GravityJamRoot.cpp in Sources */,
@@ -732,6 +739,7 @@
 			files = (
 				2A2CE03519EB3A4B003EEB14 /* GJ_HUD.cpp in Sources */,
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
+				2A40ABB919F62835007E6402 /* GJ_TileState.cpp in Sources */,
 				2A2CE03B19EB55C8003EEB14 /* VisibleRect.cpp in Sources */,
 				5087E75817EB910900C73F5D /* GravityJamRoot.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,

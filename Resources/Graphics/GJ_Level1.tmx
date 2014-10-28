@@ -5,6 +5,12 @@
  </tileset>
  <tileset firstgid="11" name="metaTiles_v1" tilewidth="64" tileheight="64">
   <image source="metaTiles_v1.png" width="320" height="64"/>
+  <tile id="1">
+   <properties>
+    <property name="Free" value="True"/>
+    <property name="Stop" value="False"/>
+   </properties>
+  </tile>
   <tile id="4">
    <properties>
     <property name="Stop" value="True"/>
@@ -33,7 +39,7 @@
  </layer>
  <layer name="Meta" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBi8gB8HxqeeGLHBrJ4U/w4GAABWJwEt
+   eJzjZ2Bg4B9GmAcNDzX1Qw0DAFtHCEE=
   </data>
  </layer>
 </map>

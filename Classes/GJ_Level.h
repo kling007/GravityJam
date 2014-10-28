@@ -24,6 +24,7 @@
 #define __Gravity_Jam__GJ_Level__
 
 #include "cocos2d.h"
+#include "GJ_TileState.h"
 
 USING_NS_CC;
 
@@ -77,6 +78,9 @@ private:
     cocos2d::TMXTiledMap * tileMap;
     cocos2d::TMXLayer * background;
     cocos2d::TMXLayer * metaLayer;
+    
+    // MapState
+    MapState * theMap;
     
     // the cache of currently active "game" tileSprites
     // these are the ones that the player is trying to get rid of
