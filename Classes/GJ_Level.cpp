@@ -74,11 +74,8 @@ bool Level::createPuzzleTiles()
 {
     ValueMap * v;
     int x, y = 0;
-    
-    // reserve the Sprite array
     puzzleTiles.reserve(numTiles);
     
-    // this is not retained right now (should it be?)
     TMXObjectGroup * puzzleTileGroup = tileMap->getObjectGroup("Objects");
     ValueVector objectTiles = puzzleTileGroup->getObjects();
     
@@ -90,14 +87,16 @@ bool Level::createPuzzleTiles()
     // This is where different tiles are found in the map and their sprites created
     // range-based for loop, lambda to create, set properties, and push back tiles
     
-    auto createPuzzleTile = [&](std::string tileType, Vec2 loc){
+    auto createPuzzleTile = [&](std::string tileType, Vec2 loc, int color){
         
         Sprite * temp = Sprite::create(tileType);
+        Vec2 tileCoords = tileCoordForPosition(loc);
         temp->setPosition(loc);
         temp->setAnchorPoint(Vec2(0,0));
         tileMap->addChild(temp, 0);
         puzzleTiles.push_back(temp);
-        theMap->setTileOccupied(tileCoordForPosition(loc));
+        theMap->setTileOccupied(tileCoords);
+        theMap->setTileColor(tileCoords, color);
     };
     
     // determine color property, get coords, create tile
@@ -107,18 +106,17 @@ bool Level::createPuzzleTiles()
         y = v->at("y").asInt();
         auto tileType = v->at("name").asString();
        
-        // would a switch be more efficient? this seems pretty good
         if(tileType == "BlueSpawn")
         {
-            createPuzzleTile("blueTile.png", Vec2(x,y));
+            createPuzzleTile("blueTile.png", Vec2(x,y), kBlue);
         } else if (tileType == "RedSpawn"){
-            createPuzzleTile("redTile.png", Vec2(x,y));
+            createPuzzleTile("redTile.png", Vec2(x,y), kRed);
         } else if (tileType == "GreenSpawn"){
-            createPuzzleTile("greenTile.png", Vec2(x,y));
+            createPuzzleTile("greenTile.png", Vec2(x,y), kGreen);
         } else if (tileType == "YellowSpawn"){
-            createPuzzleTile("greenTile.png", Vec2(x,y));
+            createPuzzleTile("yellowTile.png", Vec2(x,y), kYellow);
         } else if (tileType == "OrangeSpawn"){
-            createPuzzleTile("orangeTile.png", Vec2(x,y));
+            createPuzzleTile("orangeTile.png", Vec2(x,y), kOrange);
         } else {
             CCLOG("Unrecognized Tile type '%s' at %i, %i \n", v->at("name").asString().c_str(), x, y);
         }
@@ -129,36 +127,26 @@ bool Level::createPuzzleTiles()
 
 bool Level::createPassiveTiles()
 {
-    ValueMap * v;
-    int x, y = 0;
+
     Size mapSize = tileMap->getMapSize();
-    
-    // reserve the Sprite array
     passiveTiles.reserve(numTiles);
     
     // passive tiles are on the meta layer
-    // Passive tiles don't really get sprites if they are in the design
-    // create a lambda to handle the various types of tiles
+    // Passive tiles don't get sprites if they are in the design
     
-    // create any tiles we need, update the map state
-    
+    // this will make more sense once we have more types of passive tiles
     auto createPassiveTile = [&](std::string tileType, Vec2 loc){
         
-        //Sprite * temp = Sprite::create(tileType);
-        //temp->setPosition(loc);
-        //temp->setAnchorPoint(Vec2(0,0));
-        //tileMap->addChild(temp, 0);
-        //passiveTiles.push_back(temp);
-        theMap->setTileStop(loc);
+        if(tileType=="Stop"){
+            theMap->setTileStop(loc);
+        };
     };
     
-    //int i,j = 0;
     ValueMap tileProperties;
     int theGID;
     
     // determine properties, get coords, add tile
     // for each in meta layer ( same size as mapState obj )
-    // tileMap->propertiesForGID(TMXLayer->getTileGIDAt(i,j))
     // createPassiveTile per the properties therein
     for (int i=0;i<mapSize.height; i++)
     {
@@ -170,22 +158,13 @@ bool Level::createPassiveTiles()
             CCLOG("metaLayer[%i][%i]", i,j);
             CCLOG("GID: %i\n", theGID);
             if (theGID != 0) {
-                // it isn't empty lets see what properties it has
-                // can there be any bullshit more brittle than a goddamn strcmp on the contents of an external file
-                // there has got to be a better goddamn way
+                // if it isn't empty lets see what properties it has
+                // only passive tile type at the moment is "Stop"
                 
                 if (tileProperties.at("Stop").asString()=="True") {
-                    createPassiveTile("Stop", testLoc);
+                    createPassiveTile("Stop", Vec2(i,j));
                 }
             }
-/*            auto prop = tileProperties.at("name").asString();
-            // would a switch be more efficient? this seems pretty good
-            if(prop == "Stop")
-            {
-                createPassiveTile("blueTile.png", Vec2(x,y));
-            } else {
-                CCLOG("Unrecognized Tile type '%s' at %i, %i \n", v->at("name").asString().c_str(), x, y);
-  */
         }
     }
     
@@ -254,6 +233,8 @@ bool Level::unloadLevel()
         this->clearAllTiles();
     }
     
+    delete theMap;
+    
     return true;
 }
 
@@ -261,18 +242,24 @@ bool Level::unloadLevel()
 
 Vec2 Level::tileCoordForPosition(Vec2 position)
 {
-    // this is suspect
     int tileWidth = tileMap->getTileSize().width;
     int tileHeight = tileMap->getTileSize().height;
-    
+
     int x = position.x / tileWidth;
     
-    int y = position.y / tileHeight;
+    // theMap vector is 0 based, so we need to subtract 1 - why not for x as well?
+    int y =(((tileMap->getMapSize().height * tileHeight) - position.y) / tileHeight) - 1;
     
     return Vec2(x, y);
-    // Why is this here: ?
-    // return position;
- }
+}
+
+Vec2 Level::getPxforCoord(Vec2 inCoord)
+{
+    int xIncrement = tileMap->getTileSize().width;
+    int yIncrement = tileMap->getTileSize().height;
+    
+    return Vec2((inCoord.x)*xIncrement, (inCoord.y)*yIncrement);
+}
 
 Vec2 Level::getAdjacentPxCoord(Vec2 inCoord, int direction)
 {
@@ -300,6 +287,7 @@ Vec2 Level::getAdjacentPxCoord(Vec2 inCoord, int direction)
             
         default:
             // is there something else I should do if I get a bad direction? Doubtful I will
+            CCLOG("Bad direction value passed: %d\n", direction);
             return inCoord;
             break;
     }
@@ -307,53 +295,152 @@ Vec2 Level::getAdjacentPxCoord(Vec2 inCoord, int direction)
     return newPos;
 }
 
-bool Level::getStopProp(Vec2 toCoord)
+Vec2 Level::getAdjacentCoord(Vec2 inCoord, int direction)
 {
-    Vec2 tileCoord = this->tileCoordForPosition(toCoord);
-    bool stopVal = false;
+    int xIncrement = 1;
+    int yIncrement = 1;
     
-    if (!theMap->isLocInRange(toCoord)) {
-        // if the tile is out of range, please stop
-        CCLOG("Tile reached edge of map! Check the level tmx.");
-        return true;
+    Vec2 newPos;
+    
+    switch (direction) {
+        case UP:
+            newPos.set(Vec2(inCoord.x, inCoord.y+yIncrement));
+            break;
+            
+        case DOWN:
+            newPos.set(Vec2(inCoord.x, inCoord.y-yIncrement));
+            break;
+            
+        case LEFT:
+            newPos.set(Vec2(inCoord.x-xIncrement, inCoord.y));
+            break;
+            
+        case RIGHT:
+            newPos.set(Vec2(inCoord.x+xIncrement, inCoord.y));
+            break;
+            
+        default:
+            // is there something else I should do if I get a bad direction? Doubtful I will
+            CCLOG("Bad direction value passed: %d\n", direction);
+            return inCoord;
+            break;
     }
-    stopVal = theMap->isTileStop(tileCoord);
     
-    return stopVal;
+    return newPos;
+}
+
+Sprite * Level::getTileForCoord(Vec2 positionCoord)
+{
+    
+    Vec2 tilePosInPx = getPxforCoord(positionCoord);
+    for(auto &s : puzzleTiles)
+    {
+        if (s->getPosition()==tilePosInPx) {
+            return s;
+        }
+    }
+    
+    // if there is nothing there, return a null ptr
+    return nullptr;
 }
 
 void Level::createPuzzleTileMove(Sprite * theTile, int direction)
 {
     bool stopped = false;
     Vec2 currentPos = theTile->getPosition();
-    Vec2 nextPos;
+    Vec2 oldPosCoords = tileCoordForPosition(currentPos);
+    Vec2 nextPos, nextPosCoords;
+    int numTilesInMove = 0;
     
-    // while we haven't found a stop tile, keep it moving
+    // while we haven't found a stop condition, keep it moving
     while (!stopped) {
+        // we calc next location in terms of px, check it in tileCoords, do move in px
         nextPos.set(getAdjacentPxCoord(currentPos, direction));
+        nextPosCoords.set(this->tileCoordForPosition(nextPos));
         
-        if (getStopProp(nextPos)) { // find the stop property of the next tile in the direction
+        if (!theMap->isLocInRange(nextPosCoords)) {
+            CCLOG("Tile reached edge of map! Check the level design for gaps in the stop property.\n");
+            CCLOG("Tile location: %f, %f\n", nextPosCoords.x, nextPosCoords.y);
+            stopped = true;
+            goto endMove;
+        }
+        
+        if (theMap->isTileStop(nextPosCoords)|| theMap->isTileOccupied(nextPosCoords)) {
             stopped = true; // if it is stop, currentPos is the end of the move
+            goto endMove;
         } else {
             currentPos.set(nextPos); // otherwise we move ahead
         }
+        
+    endMove: ;
+        numTilesInMove++;
     }
     
-    theTile->runAction(MoveTo::create(0.25, currentPos));
-    
+    // I need a method in MapState to move atributes from one loc to another
+    theMap->setTileNotOccupied(oldPosCoords);
+    int tileColor = theMap->getTileColor(oldPosCoords);
+    theMap->clearTileColor(oldPosCoords);
+    // The duration of this move should a be unit of time for each tile width moved so that tiles move at the same speed
+    theTile->runAction(MoveTo::create(0.05*numTilesInMove, currentPos));
+    Vec2 newCoords = this->tileCoordForPosition(currentPos);
+    theMap->setTileOccupied(newCoords);
+    theMap->setTileColor(newCoords, tileColor);
 }
 
 void Level::moveTiles(int dir)
 {
     // for each puzzle tile
     // construct the movement action in direction dir
-    for(auto &s : puzzleTiles)
+    
+    Sprite * theTile;
+    
+    int x, y;
+    
+    int maxX = theMap->sizeX - 1;
+    int maxY = theMap->sizeY - 1;
+    
+    // this will be the site of many step throughs as puzzles get more complex
+    if(dir==UP)
     {
-        createPuzzleTileMove(s, dir);
+        for (x=maxX; x>=0; x--) {
+            for (y=maxY; y>=0; y--) {
+                theTile = getTileForCoord(Vec2(x,y));
+                if (theTile != nullptr) {
+                    createPuzzleTileMove(theTile, dir);
+                }
+            }
+        };
+    } else if(dir==DOWN  ){
+        for (x=maxX; x>=0; x--) {
+            for (y=0; y<=maxY; y++) {
+                theTile = getTileForCoord(Vec2(x,y));
+                if (theTile != nullptr){
+                    createPuzzleTileMove(theTile, dir);
+                }
+            }
+        };
+    } else if (dir==LEFT){
+        for (y=0; y<=maxY; y++) {
+            for (x=0; x<=maxX; x++) {
+                theTile = getTileForCoord(Vec2(x,y));
+                if (theTile != nullptr){
+                    createPuzzleTileMove(theTile, dir);
+                }
+            }
+        };
+    } else if (dir==RIGHT){
+        for (y=0; y<=maxY; y++) {
+            for (x=maxX; x>=0; x--) {
+                theTile = getTileForCoord(Vec2(x,y));
+                if (theTile != nullptr){
+                    createPuzzleTileMove(theTile, dir);
+                }
+            }
+        };
     }
- 
-    // for each puzzle tile
-    // run the constructed actions
+
+    // at this point in the story, we check for color adjacency and delete some tiles
+
 }
 
 

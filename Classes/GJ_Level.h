@@ -12,10 +12,8 @@
     Levels are designed in Tiled and saved as TMX maps
     
     There are two types of tiles, passive and active. Active tiles are the tiles cleared by the player.
-    Passive tiles are not clearable, generally barriers and have puzzl-e uses. There is a vector for each.
- 
-    A Sprite subclass should be used in the future, which will require changes to methods and the vectors.
- 
+    Passive tiles are not clearable, generally barriers and have puzzl-e uses. There is a vector for each. 
+
     Tiles are loaded onto the active layer by passing the level number and a Layer* to loadLevel();
     This implementation is brittle; a smarter method/class could place them in a layer with arbitrary size.
 */
@@ -52,10 +50,13 @@ public:
     bool loadLevel(int levelNum, Layer * activeLayer);
     bool unloadLevel();
     
+   
     // movement
     Vec2 tileCoordForPosition(Vec2 position);
+    Sprite * getTileForCoord(Vec2 positionCoord);
+    Vec2 getPxforCoord(Vec2 inCoord);
     Vec2 getAdjacentPxCoord(Vec2 inCoord, int direction);
-    bool getStopProp(Vec2 toCoord);
+    Vec2 getAdjacentCoord(Vec2 inCoord, int direction);
     void createPuzzleTileMove(Sprite * theTile, int direction);
     void setActionForPuzzleTile(Sprite * theTile, Action * theAction);
     void moveTiles(int dir);
@@ -86,13 +87,7 @@ private:
     // these are the ones that the player is trying to get rid of
     std::vector<Sprite*> puzzleTiles;
     std::vector<Sprite*> passiveTiles;
-    
-    // I am not sure I need to retain these, but they serve as a low level interface to the tiles themselves
-    // TMXObjectGroup * puzzleTileGroup;
-    // does it make sense to have two of these?
-    // TMXObjectGroup * passiveTileGroup;
-    
-    
+  
 };
 
 #endif /* defined(__Gravity_Jam__GJ_Level__) */

@@ -14,11 +14,20 @@
 
 USING_NS_CC;
 
+enum Colors {
+    kNoColor,
+    kBlue,
+    kRed,
+    kGreen,
+    kYellow,
+    kOrange
+};
+
 // the state of each tile on the map at its properties
-// perhaps properties should be a hash? seems like that is a bit heavyweight
 
 struct TileState {
     Vec2 coordinates;
+    int color;
     bool occupied;
     bool isStop;
 };
@@ -35,6 +44,7 @@ public:
     // global operations
     bool initMap(Size mapSize);
     bool addTile(Vec2 loc);
+    bool isLocInRange(Vec2 loc);
     
     void setTileOccupied(Vec2 loc);
     void setTileNotOccupied(Vec2 loc);
@@ -44,20 +54,23 @@ public:
     void setTileNotStop(Vec2 loc);
     bool isTileStop(Vec2 loc);
     
-    void setTileLocation(Vec2 loc);
+    void setTileColor(Vec2 loc, int color);
+    void clearTileColor(Vec2 loc);
+    int  getTileColor(Vec2 loc);
     
     void setTileState(Vec2 loc, bool occupy, bool stop);
     
-    bool isLocInRange(Vec2 loc);
+    // utility
+    void moveTileState(Vec2 fromLoc, Vec2 toLoc);
+    void copyTileState(Vec2 fromLoc, Vec2 toLoc);
     
 private:
     
-    // manage tiles
     bool setMapSize(int x, int y);
     bool mapValid();
     void clearMap();
-    TileState createTileState(Vec2 loc, bool occupy, bool stop);
     
+    TileState createTileState(Vec2 loc, bool occupy, bool stop);
     std::vector<std::vector<TileState>> mapState;
     
 };

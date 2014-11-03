@@ -51,27 +51,13 @@ bool MapState::setMapSize(int x, int y)
     sizeY = y;
     numTiles = x*y;
     mapFull = true;
-    
-    // see if we need to empty first - mapFull is just to keep honest ppl honest
-    // reserve
 
-    for(int i=0; i<sizeY; i++)
-    {
-//        if(!mapState[i].empty())
-//        {
-//            mapState[i].clear();
-//        }
-//        
-//        mapState[i].reserve(numTiles);
-    }
-
-    
     return true;
 }
 
 bool MapState::addTile(Vec2 loc)
 {
-    TileState * temp = &mapState[loc.y][loc.x];
+    TileState * temp = &mapState[loc.x][loc.y];
 
     if (temp) {
         //temp->coordinates.set(loc);
@@ -81,7 +67,7 @@ bool MapState::addTile(Vec2 loc)
     else
     {
         auto newTile = createTileState(loc, false, false);
-        mapState[loc.y][loc.x] = newTile;
+        mapState[loc.x][loc.y] = newTile;
     }
 
 }
@@ -114,54 +100,68 @@ TileState MapState::createTileState(Vec2 loc, bool occupy, bool stop)
 {
     TileState newTile;
     
-    //newTile.coordinates = Vec2(loc);
     newTile.occupied = occupy;
     newTile.isStop = stop;
+    newTile.color = kNoColor;
     
     return newTile;
 }
 
 void MapState::setTileOccupied(Vec2 loc)
 {
-    mapState[loc.y][loc.x].occupied = true;
+    mapState[loc.x][loc.y].occupied = true;
 }
 
 void MapState::setTileNotOccupied(Vec2 loc)
 {
-    mapState[loc.y][loc.x].occupied = false;
+    mapState[loc.x][loc.y].occupied = false;
 }
 
 bool MapState::isTileOccupied(Vec2 loc)
 {
-    return mapState[loc.y][loc.x].occupied;
+    return mapState[loc.x][loc.y].occupied;
 }
 
 void MapState::setTileStop(Vec2 loc)
 {
-    mapState[loc.y][loc.x].isStop = true;
+    mapState[loc.x][loc.y].isStop = true;
 }
 
 void MapState::setTileNotStop(Vec2 loc)
 {
-    mapState[loc.y][loc.x].isStop = false;
+    mapState[loc.x][loc.y].isStop = false;
 }
 
 bool MapState::isTileStop(Vec2 loc)
 {
-    return mapState[loc.y][loc.x].isStop;
+    return mapState[loc.x][loc.y].isStop;
+}
+
+// color
+void MapState::setTileColor(Vec2 loc, int color)
+{
+    mapState[loc.x][loc.y].color = color;
+}
+
+void MapState::clearTileColor(Vec2 loc)
+{
+    mapState[loc.x][loc.y].color = kNoColor;
+}
+
+int  MapState::getTileColor(Vec2 loc)
+{
+    return mapState[loc.x][loc.y].color;
 }
 
 void MapState::setTileState(Vec2 loc, bool occupy, bool stop)
 {
-    int i = loc.y;
-    int j = loc.x;
+    int i = loc.x;
+    int j = loc.y;
     TileState  currentTile = mapState[i][j];
     
     TileState newTile = {loc, occupy, stop};
+    newTile.color = kNoColor;
     mapState[i][j] = newTile;
-        //mapState[i][j]->coordinates = Vec2(loc);
-        //mapState[i][j].isStop = stop;
-        //mapState[i][j].occupied = occupy;
     
 }
 
