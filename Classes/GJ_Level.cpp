@@ -344,7 +344,7 @@ Sprite * Level::getTileForCoord(Vec2 positionCoord)
     return nullptr;
 }
 
-void Level::createPuzzleTileMove(Sprite * theTile, int direction)
+bool Level::createPuzzleTileMove(Sprite * theTile, int direction)
 {
     bool stopped = false;
     Vec2 currentPos = theTile->getPosition();
@@ -376,15 +376,19 @@ void Level::createPuzzleTileMove(Sprite * theTile, int direction)
         numTilesInMove++;
     }
     
-    // I need a method in MapState to move atributes from one loc to another
-    theMap->setTileNotOccupied(oldPosCoords);
-    int tileColor = theMap->getTileColor(oldPosCoords);
-    theMap->clearTileColor(oldPosCoords);
     // The duration of this move should a be unit of time for each tile width moved so that tiles move at the same speed
     theTile->runAction(MoveTo::create(0.05*numTilesInMove, currentPos));
+    
     Vec2 newCoords = this->tileCoordForPosition(currentPos);
-    theMap->setTileOccupied(newCoords);
-    theMap->setTileColor(newCoords, tileColor);
+    theMap->moveTileState(oldPosCoords, newCoords);
+    
+    // if we move nothing, let the caller know
+    if (numTilesInMove==0) {
+        return false;
+    }
+    
+    // let the caller know we moved something
+    return true;
 }
 
 void Level::moveTiles(int dir)
@@ -395,9 +399,12 @@ void Level::moveTiles(int dir)
     Sprite * theTile;
     
     int x, y;
-    
     int maxX = theMap->sizeX - 1;
     int maxY = theMap->sizeY - 1;
+ 
+    // these sentinels indicate whether we need to check for grouped colors or if we need to delete tiles and recur
+    bool movesDone = false;
+    bool tilesDeleted = false;
     
     // this will be the site of many step throughs as puzzles get more complex
     if(dir==UP)
@@ -406,7 +413,10 @@ void Level::moveTiles(int dir)
             for (y=maxY; y>=0; y--) {
                 theTile = getTileForCoord(Vec2(x,y));
                 if (theTile != nullptr) {
-                    createPuzzleTileMove(theTile, dir);
+                    if(createPuzzleTileMove(theTile, dir))
+                    {
+                    movesDone = true;
+                    }
                 }
             }
         };
@@ -415,7 +425,10 @@ void Level::moveTiles(int dir)
             for (y=0; y<=maxY; y++) {
                 theTile = getTileForCoord(Vec2(x,y));
                 if (theTile != nullptr){
-                    createPuzzleTileMove(theTile, dir);
+                    if(createPuzzleTileMove(theTile, dir))
+                    {
+                        movesDone = true;
+                    }
                 }
             }
         };
@@ -424,7 +437,10 @@ void Level::moveTiles(int dir)
             for (x=0; x<=maxX; x++) {
                 theTile = getTileForCoord(Vec2(x,y));
                 if (theTile != nullptr){
-                    createPuzzleTileMove(theTile, dir);
+                    if(createPuzzleTileMove(theTile, dir))
+                    {
+                        movesDone = true;
+                    }
                 }
             }
         };
@@ -433,14 +449,27 @@ void Level::moveTiles(int dir)
             for (x=maxX; x>=0; x--) {
                 theTile = getTileForCoord(Vec2(x,y));
                 if (theTile != nullptr){
-                    createPuzzleTileMove(theTile, dir);
+                    if(createPuzzleTileMove(theTile, dir))
+                    {
+                        movesDone = true;
+                    }
                 }
             }
         };
     }
 
     // at this point in the story, we check for color adjacency and delete some tiles
-
+    if(movesDone)
+    {
+        theMap->connectComponents();
+        theMap->deleteComponents();
+        // if any are found, set tilesDeleted = true
+    }
+    if(tilesDeleted)
+    {
+        // delete tiles
+        // re-run this method
+    }
 }
 
 

@@ -30,16 +30,34 @@ struct TileState {
     int color;
     bool occupied;
     bool isStop;
+
+    // linked listness
+    // TileState * prev;
+    TileState * parent;
+    int rank;
+    bool markedForDelete;
 };
 
 typedef struct TileState TileState;
+
+//// collecting connected groups for deletion
+//
+//struct TileGroup {
+//    TileState * head;
+//    TileState * tail;
+//    int tileCount;
+//    int rank;
+//    int groupID;
+//};
+//
+//typedef struct TileGroup TileGroup;
 
 class MapState {
 
 public:
     MapState();
     bool mapFull;
-    int sizeX, sizeY, numTiles;
+    int sizeX, sizeY, numTiles, numGroups;
     
     // global operations
     bool initMap(Size mapSize);
@@ -64,6 +82,14 @@ public:
     void moveTileState(Vec2 fromLoc, Vec2 toLoc);
     void copyTileState(Vec2 fromLoc, Vec2 toLoc);
     
+    // disjoint set methods
+    TileState * makeSet(Vec2 loc);
+    void unionSets(TileState * setA, TileState * setB);
+    TileState * findSet(TileState * loc);
+    bool sameComponent(Vec2 locA, Vec2 locB);
+    void connectComponents(void);
+    int deleteComponents(void);
+    
 private:
     
     bool setMapSize(int x, int y);
@@ -72,6 +98,8 @@ private:
     
     TileState createTileState(Vec2 loc, bool occupy, bool stop);
     std::vector<std::vector<TileState>> mapState;
+    std::vector<TileState> occupiedTiles;
+//    std::vector<TileGroup> tileGroups;
     
 };
 

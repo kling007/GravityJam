@@ -57,8 +57,9 @@ public:
     Vec2 getPxforCoord(Vec2 inCoord);
     Vec2 getAdjacentPxCoord(Vec2 inCoord, int direction);
     Vec2 getAdjacentCoord(Vec2 inCoord, int direction);
-    void createPuzzleTileMove(Sprite * theTile, int direction);
+    bool createPuzzleTileMove(Sprite * theTile, int direction);
     void setActionForPuzzleTile(Sprite * theTile, Action * theAction);
+    bool checkForTileGroups(void);
     void moveTiles(int dir);
     
     // instance vars
