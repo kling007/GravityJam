@@ -73,7 +73,8 @@ bool GravityJamRoot::init()
         return false;
     }
     
-    this->setTouchEnabled(true);
+    this-> scheduleUpdate();
+    
     return true;
 }
 
@@ -105,9 +106,6 @@ bool GravityJamRoot::closeLevel()
     return true;
 }
 
-//void GravityJamRoot::registerWithTouchDispatcher() {
-//    Director::sharedDirector()->getTouchDispatcher()->addTargetedDelegate(this, 0, true);
-//}
 
 bool GravityJamRoot::setupTouches()
 {
@@ -153,6 +151,9 @@ bool GravityJamRoot::setupTouches()
         
         theLevel.moveTiles(dir);
         
+        // check for end of level condition, additional moves
+        theLevel.endOfMoveChecks(dir);
+        
     };
     
     _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
@@ -194,6 +195,11 @@ int GravityJamRoot::getTouchDirection()
     return NO_DIRECTION;
 }
 
+void GravityJamRoot::update(float dt)
+{
+    theLevel.scheduleUpdate();
+}
+
 void GravityJamRoot::menuCloseCallback(Ref* pSender)
 {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WP8) || (CC_TARGET_PLATFORM == CC_PLATFORM_WINRT)
@@ -208,78 +214,3 @@ void GravityJamRoot::menuCloseCallback(Ref* pSender)
 #endif
 }
 
-// Code dump
-
-/*
- // unload a level if it is currently there (clear sprite cache)
- if (!tileSprites.empty()) {
- while (!tileSprites.empty()) {
- tileSprites.pop_back();
- }
- }
- 
- // this is where we will choose the appropriate tileMap given the level passed
- 
- // place the tilemap
- auto tileMap = TMXTiledMap::create("Graphics/GJ_Level1.tmx");
- background = tileMap->getLayer("Background");
- float posX, posY;
- 
- 
- // the puzzle area is rooted at (3/16 * x, 1/6 * y)
- posX = origin.x + 0.1875*visibleSize.width;
- posY = origin.y + visibleSize.height/6.0;
- 
- tileMap->setAnchorPoint(Vec2(0, 0));
- Size mapSize = tileMap->getMapSize();
- int numTiles = ceil(mapSize.height*mapSize.width);
- float tm_scale = 0.375*visibleSize.width/tileMap->getContentSize().width;
- 
- // reserve the Sprite array
- tileSprites.reserve(numTiles);
- 
- // spawn puzzle pieces - maybe use another function/method for this
- TMXObjectGroup * objectGroup = tileMap->getObjectGroup("Objects");
- 
- if (objectGroup == NULL) {
- CCLOG("Tile map is NULL");
- return false;
- }
- 
- // iterate and add sprites according to name "BlueSpawn"
- ValueVector objectTiles = objectGroup->getObjects();
- ValueMap * v;
- int x, y = 0;
- 
- // find where to put our active tiles (the ones the play moves around)
- for (auto& tile : objectTiles) {
- v = &tile.asValueMap();
- 
- // should we check this more thoroughly?
- if(v->at("name").asString() == "BlueSpawn")
- {
- // get the coordinates of the spawn point we've found
- // these need to be anchored to 0,0 of tile area in Tiled
- x = v->at("x").asInt();
- y = v->at("y").asInt();
- 
- // create a blue tile sprite - need to figure out how to do this smartly per color
- Sprite * temp = Sprite::create("blueTile.png");
- // get that out of the for loop you lazy POS
- //temp->setScale(tm_scale);
- temp->setPosition(Vec2(x,y));
- temp->setAnchorPoint(Vec2(0,0));
- tileMap->addChild(temp, 0);
- 
- // push it on to the SpriteVector
- tileSprites.push_back(temp);
- }
- }
- 
- // scale the tileMap to fit into the puzzle area, which is 3/8 * x
- // will change after we have a design fix
- 
- tileMap->setScale(tm_scale);
- tileMap->setPosition(Vec2(posX, posY));
- this->addChild(tileMap, 0);
- */

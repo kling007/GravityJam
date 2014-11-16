@@ -33,6 +33,7 @@ public:
     Level theLevel;
     bool initLevel(int levelNum);
     bool closeLevel();
+    void update(float dt);
     
     // off switch callback method (func)
     void menuCloseCallback(cocos2d::Ref* pSender);
@@ -54,8 +55,6 @@ public:
     Score theScore;
     int gj_level, gj_timeInSeconds;
     unsigned short gj_hours, gj_minutes, gj_seconds;
-    
-    
     
     // implement the "static create()" method manually
     CREATE_FUNC(GravityJamRoot);

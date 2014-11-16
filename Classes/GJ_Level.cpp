@@ -21,60 +21,20 @@ bool Level::init()
     // not much to initialize here
     
     curLevel = 0;
+    curDirection = 0;
     posX = 0.0f;
     posY = 0.0f;
     tm_scale = 0.0f;
+    //this-> scheduleUpdate();
     
     return true;
 }
 
-// tile management
-bool Level::clearAllTiles()
-{
-    // unload puzzle tiles
-    if (!clearPuzzleTiles()) {
-        CCLOG("Error clearing puzzle tiles");
-        return false;
-    }
-    
-    // unload passive tiles
-    if (!clearPassiveTiles()) {
-        
-        CCLOG("Error clearing passive tiles");
-        return false;
-    }
-
-    return true;
-}
-
-bool Level::clearPuzzleTiles()
-{
-    // unload puzzle tiles
-    if (!puzzleTiles.empty()) {
-        while (!puzzleTiles.empty()) {
-            puzzleTiles.pop_back();
-        }
-    }
-    
-    return true;
-}
-
-bool Level::clearPassiveTiles()
-{
-    // unload passive tiles
-    if (!passiveTiles.empty()) {
-        while (!passiveTiles.empty()) {
-            passiveTiles.pop_back();
-        }
-    }
-    return true;
-}
 
 bool Level::createPuzzleTiles()
 {
     ValueMap * v;
     int x, y = 0;
-    puzzleTiles.reserve(numTiles);
     
     TMXObjectGroup * puzzleTileGroup = tileMap->getObjectGroup("Objects");
     ValueVector objectTiles = puzzleTileGroup->getObjects();
@@ -93,10 +53,11 @@ bool Level::createPuzzleTiles()
         Vec2 tileCoords = tileCoordForPosition(loc);
         temp->setPosition(loc);
         temp->setAnchorPoint(Vec2(0,0));
+        temp->retain();
         tileMap->addChild(temp, 0);
-        puzzleTiles.push_back(temp);
         theMap->setTileOccupied(tileCoords);
         theMap->setTileColor(tileCoords, color);
+        theMap->setSpriteForTile(tileCoords, temp);
     };
     
     // determine color property, get coords, create tile
@@ -129,10 +90,6 @@ bool Level::createPassiveTiles()
 {
 
     Size mapSize = tileMap->getMapSize();
-    passiveTiles.reserve(numTiles);
-    
-    // passive tiles are on the meta layer
-    // Passive tiles don't get sprites if they are in the design
     
     // this will make more sense once we have more types of passive tiles
     auto createPassiveTile = [&](std::string tileType, Vec2 loc){
@@ -176,18 +133,15 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
 {
     parentVisibleSize = Director::getInstance()->getVisibleSize();
     parentOrigin = Director::getInstance()->getVisibleOrigin();
-    
-    // perhaps a call to unload level would be better?
-    if(!puzzleTiles.empty()||!passiveTiles.empty())
-    {
-        this->clearAllTiles();
-    }
+   
+    // How do we check the map to see if we need to clear it, or will this only be called on a fresh level?
+    // *******************
     
     // place the tilemap
     // need to match the incoming levelNumber with the .tmx filename
     
     theMap = new MapState();
-    tileMap = TMXTiledMap::create("Graphics/GJ_Level1.tmx");
+    tileMap = TMXTiledMap::create("Graphics/GJ_Level2.tmx");
     background = tileMap->getLayer("Background");
     metaLayer = tileMap->getLayer("Meta");
     metaLayer->setVisible(false);
@@ -203,8 +157,8 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
     tm_scale = 0.375*parentVisibleSize.width/tileMap->getContentSize().width;
     
     // init our map state tracking data structure
-    // actual initial state is created in the create funcs below
-    theMap->initMap(mapSize);
+    // actual initial state is loaded/created in the create funcs below
+    theMap->initMap(mapSize, tileMap->getTileSize().width, tileMap->getTileSize().height);
     
     if (!createPassiveTiles()) {
         CCLOG("Error creating passive tiles!");
@@ -223,16 +177,20 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
     tileMap->setPosition(Vec2(posX, posY));
     activeLayer->addChild(tileMap, 0);
     
+    theMap->printState();
+    
     return true;
 }
 
 bool Level::unloadLevel()
 {
-    if(!puzzleTiles.empty()||!passiveTiles.empty())
-    {
-        this->clearAllTiles();
-    }
+    // THIS NEEDS TO BE FIXED TO UNLOAD THE LEVEL PROPERLY!!!
+    //*******************************************************
     
+    // har har - this is far from complete
+    background->release();
+    metaLayer->release();
+    tileMap->release();
     delete theMap;
     
     return true;
@@ -263,6 +221,7 @@ Vec2 Level::getPxforCoord(Vec2 inCoord)
 
 Vec2 Level::getAdjacentPxCoord(Vec2 inCoord, int direction)
 {
+    // calculate the pixel location of the next tile towards the specified direction
     int xIncrement = tileMap->getTileSize().width;
     int yIncrement = tileMap->getTileSize().height;
     
@@ -297,6 +256,7 @@ Vec2 Level::getAdjacentPxCoord(Vec2 inCoord, int direction)
 
 Vec2 Level::getAdjacentCoord(Vec2 inCoord, int direction)
 {
+    // calculate the map coordinates of the next tile towards the specified direction
     int xIncrement = 1;
     int yIncrement = 1;
     
@@ -320,7 +280,6 @@ Vec2 Level::getAdjacentCoord(Vec2 inCoord, int direction)
             break;
             
         default:
-            // is there something else I should do if I get a bad direction? Doubtful I will
             CCLOG("Bad direction value passed: %d\n", direction);
             return inCoord;
             break;
@@ -329,34 +288,24 @@ Vec2 Level::getAdjacentCoord(Vec2 inCoord, int direction)
     return newPos;
 }
 
-Sprite * Level::getTileForCoord(Vec2 positionCoord)
-{
-    
-    Vec2 tilePosInPx = getPxforCoord(positionCoord);
-    for(auto &s : puzzleTiles)
-    {
-        if (s->getPosition()==tilePosInPx) {
-            return s;
-        }
-    }
-    
-    // if there is nothing there, return a null ptr
-    return nullptr;
-}
 
 bool Level::createPuzzleTileMove(Sprite * theTile, int direction)
 {
+    // create the actions for the tile moving in the specified direction and schedule/run them
+    // accommodating more complicated and special tile actions here may require creating stacks of actions
+    // before wrapping them in a sequence and sending them to runAction.
+    // For now the simple construction below will suffice.
+    
     bool stopped = false;
     Vec2 currentPos = theTile->getPosition();
     Vec2 oldPosCoords = tileCoordForPosition(currentPos);
     Vec2 nextPos, nextPosCoords;
     int numTilesInMove = 0;
     
-    // while we haven't found a stop condition, keep it moving
     while (!stopped) {
         // we calc next location in terms of px, check it in tileCoords, do move in px
         nextPos.set(getAdjacentPxCoord(currentPos, direction));
-        nextPosCoords.set(this->tileCoordForPosition(nextPos));
+        nextPosCoords.set(tileCoordForPosition(nextPos));
         
         if (!theMap->isLocInRange(nextPosCoords)) {
             CCLOG("Tile reached edge of map! Check the level design for gaps in the stop property.\n");
@@ -370,22 +319,75 @@ bool Level::createPuzzleTileMove(Sprite * theTile, int direction)
             goto endMove;
         } else {
             currentPos.set(nextPos); // otherwise we move ahead
+            numTilesInMove++;
         }
         
     endMove: ;
-        numTilesInMove++;
+        
     }
     
-    // The duration of this move should a be unit of time for each tile width moved so that tiles move at the same speed
-    theTile->runAction(MoveTo::create(0.05*numTilesInMove, currentPos));
+    // create a lamdba to execute at the end of the action so our tile can delete itself from the map
+    // yay thread un-safeness
+    
+    auto checkDelete = CallFuncN::create([&](Node * theTile)
+    {
+        Vec2 tileLoc = tileCoordForPosition(theTile->getPosition());
+        
+        CCLOG("Tile check delete pos = %f, %f", tileLoc.x, tileLoc.y);
+        bool doWeDelete = theMap->checkTileToDeleteMark(tileLoc);
+        // if it is marked for deletion, do it here.
+        if(doWeDelete)
+        {
+            // run delete animation actions
+            FadeOut * fade = FadeOut::create(0.5);
+            
+            auto delAction = CallFuncN::create([&, tileLoc](Node * tile){
+                tile->removeFromParentAndCleanup(true);
+                theMap->clearTileState(tileLoc);
+            });
+            
+            auto updateAction = CallFunc::create([&](){
+                // this triggers all updates needed for moving remaining tiles to collapse into deleted areas
+                // I don't know why I have to explicitely call it,
+                // scheduleOnce complains about scheduling the selector twice
+                // scheduleOnce(schedule_selector(Level::update), 0.0);
+                update(0.0);
+            });
+            
+            Sequence * deleteSeq = Sequence::create(fade, delAction, updateAction, NULL);
+            theTile->runAction(deleteSeq);
+            
+            printf("Tile scheduled for delete: (%f,%f)\n", tileLoc.x, tileLoc.y);
+            
+        }
+        // give moveTiles the go ahead to poke around here now that we are done mucking around.
+        // I'm concerned that the deleteSeq action may still be running when movetiles does its thing,
+        // and may try to move a tile just as it is being deleted.
+        theMap->setTileNotMoving(tileLoc);
+    }
+    );
+    
+   
+    // if we move nothing, let the caller know and leave
+    // check the delete status first in case adjacent tile moves have marked the tile
+    
+    if (numTilesInMove==0) {
+        theTile->runAction(checkDelete);
+        return false;
+    }
+    
+    // else, we move
+    MoveTo * move = MoveTo::create(0.05*numTilesInMove, currentPos);
+    
+    // do a sequence of actions, the last of which will check we need to delete the tile after moving
+    Sequence * seq = Sequence::create(move, checkDelete, NULL);
     
     Vec2 newCoords = this->tileCoordForPosition(currentPos);
     theMap->moveTileState(oldPosCoords, newCoords);
     
-    // if we move nothing, let the caller know
-    if (numTilesInMove==0) {
-        return false;
-    }
+    // set tile as moving and run the action so moveTiles won't try to move it again while it is enroute.
+    theMap->setTileMoving(newCoords);
+    theTile->runAction(seq);
     
     // let the caller know we moved something
     return true;
@@ -393,26 +395,36 @@ bool Level::createPuzzleTileMove(Sprite * theTile, int direction)
 
 void Level::moveTiles(int dir)
 {
-    // for each puzzle tile
+    // for each puzzle tile, check if they should move and how far.
     // construct the movement action in direction dir
+    // don't move tiles that are already moving until they stop.
+    
+    //printf("Before: \n");
+    //theMap->printState();
     
     Sprite * theTile;
+    curDirection = dir;
     
     int x, y;
     int maxX = theMap->sizeX - 1;
     int maxY = theMap->sizeY - 1;
- 
-    // these sentinels indicate whether we need to check for grouped colors or if we need to delete tiles and recur
-    bool movesDone = false;
-    bool tilesDeleted = false;
+    bool moving = false;
+    bool delMar = false;
+    
+    Vec2 curLoc;
+    // these sentinels indicate whether we need to check for grouped colors and/or if we need to delete tiles and recurse
+    movesDone = false;
     
     // this will be the site of many step throughs as puzzles get more complex
     if(dir==UP)
     {
         for (x=maxX; x>=0; x--) {
-            for (y=maxY; y>=0; y--) {
-                theTile = getTileForCoord(Vec2(x,y));
-                if (theTile != nullptr) {
+            for (y=0; y<=maxY; y++) {
+                curLoc = Vec2(x,y);
+                theTile = theMap->getSpriteForTile(curLoc);
+                moving = theMap->isTileMoving(curLoc);
+                delMar = theMap->checkTileToDeleteMark(curLoc);
+                if (theTile != nullptr && !moving && !delMar) {
                     if(createPuzzleTileMove(theTile, dir))
                     {
                     movesDone = true;
@@ -422,9 +434,12 @@ void Level::moveTiles(int dir)
         };
     } else if(dir==DOWN  ){
         for (x=maxX; x>=0; x--) {
-            for (y=0; y<=maxY; y++) {
-                theTile = getTileForCoord(Vec2(x,y));
-                if (theTile != nullptr){
+            for (y=maxY; y>=0; y--) {
+                curLoc = Vec2(x,y);
+                theTile = theMap->getSpriteForTile(curLoc);
+                moving = theMap->isTileMoving(curLoc);
+                delMar = theMap->checkTileToDeleteMark(curLoc);
+                if (theTile != nullptr && !moving && !delMar) {
                     if(createPuzzleTileMove(theTile, dir))
                     {
                         movesDone = true;
@@ -435,8 +450,11 @@ void Level::moveTiles(int dir)
     } else if (dir==LEFT){
         for (y=0; y<=maxY; y++) {
             for (x=0; x<=maxX; x++) {
-                theTile = getTileForCoord(Vec2(x,y));
-                if (theTile != nullptr){
+                curLoc = Vec2(x,y);
+                theTile = theMap->getSpriteForTile(curLoc);
+                moving = theMap->isTileMoving(curLoc);
+                delMar = theMap->checkTileToDeleteMark(curLoc);
+                if (theTile != nullptr && !moving && !delMar) {
                     if(createPuzzleTileMove(theTile, dir))
                     {
                         movesDone = true;
@@ -447,8 +465,11 @@ void Level::moveTiles(int dir)
     } else if (dir==RIGHT){
         for (y=0; y<=maxY; y++) {
             for (x=maxX; x>=0; x--) {
-                theTile = getTileForCoord(Vec2(x,y));
-                if (theTile != nullptr){
+                curLoc = Vec2(x,y);
+                theTile = theMap->getSpriteForTile(curLoc);
+                moving = theMap->isTileMoving(curLoc);
+                delMar = theMap->checkTileToDeleteMark(curLoc);
+                if (theTile != nullptr && !moving && !delMar) {
                     if(createPuzzleTileMove(theTile, dir))
                     {
                         movesDone = true;
@@ -457,19 +478,49 @@ void Level::moveTiles(int dir)
             }
         };
     }
-
-    // at this point in the story, we check for color adjacency and delete some tiles
+    
+    theMap->printState();
+    
+    // if we moved anything, check for connected components
     if(movesDone)
     {
         theMap->connectComponents();
-        theMap->deleteComponents();
-        // if any are found, set tilesDeleted = true
     }
-    if(tilesDeleted)
-    {
-        // delete tiles
-        // re-run this method
-    }
+
+    endOfMoveChecks(dir);
+
 }
 
+void Level::update(float dt)
+{
+    moveTiles(curDirection);
+}
 
+void Level::endOfMoveChecks(int dir)
+{
+    // TODOs: do scoring?, if level is complete, ask parent to unload the level
+    // check to see if level is complete
+    
+    bool remainingOccupiedTiles = false;
+    
+    printf("movesDone = %i\n", movesDone);
+
+    
+    // clear deleted tiles
+    for (int j=0; j<theMap->sizeX; j++) {
+        for (int i=0; i<theMap->sizeY; i++) {
+
+            // check if there are any occupied tiles
+            if (theMap->isTileOccupied(Vec2(i,j))) {
+                remainingOccupiedTiles = true;
+            }
+        }
+    }
+    
+    if (!remainingOccupiedTiles) {
+        // Our end-of-level code goes here
+        CCLOG("Level Complete!");
+    }
+ 
+    
+}

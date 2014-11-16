@@ -34,12 +34,12 @@
  </objectgroup>
  <layer name="Tile Layer 1" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJxjYBi8QBQHxqeeGDFccrQ2nxj1pPh3MAAA91sBug==
+   eJxjYBi8QBQHxqeeGDFccjw0Np8Y9aT4dzAAAOyHAbE=
   </data>
  </layer>
  <layer name="Meta" width="12" height="12">
   <data encoding="base64" compression="zlib">
-   eJzjZ2Bg4B9GmAcNk6Ke1uYTa8dQwgBe4whE
+   eJzjZ2Bg4B9GmAcNk6KegcbmE6N+qGEATNcINQ==
   </data>
  </layer>
 </map>

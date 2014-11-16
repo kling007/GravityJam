@@ -40,6 +40,14 @@
 		2A2CE04919ED03D4003EEB14 /* blueTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE04719ED03D4003EEB14 /* blueTile.png */; };
 		2A40ABB819F62835007E6402 /* GJ_TileState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A40ABB619F62835007E6402 /* GJ_TileState.cpp */; };
 		2A40ABB919F62835007E6402 /* GJ_TileState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A40ABB619F62835007E6402 /* GJ_TileState.cpp */; };
+		2A518EF71A11D7C1009E6AE0 /* greenTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF31A11D7C1009E6AE0 /* greenTile.png */; };
+		2A518EF81A11D7C1009E6AE0 /* greenTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF31A11D7C1009E6AE0 /* greenTile.png */; };
+		2A518EF91A11D7C1009E6AE0 /* orangeTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF41A11D7C1009E6AE0 /* orangeTile.png */; };
+		2A518EFA1A11D7C1009E6AE0 /* orangeTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF41A11D7C1009E6AE0 /* orangeTile.png */; };
+		2A518EFB1A11D7C1009E6AE0 /* redTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF51A11D7C1009E6AE0 /* redTile.png */; };
+		2A518EFC1A11D7C1009E6AE0 /* redTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF51A11D7C1009E6AE0 /* redTile.png */; };
+		2A518EFD1A11D7C1009E6AE0 /* yellowTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF61A11D7C1009E6AE0 /* yellowTile.png */; };
+		2A518EFE1A11D7C1009E6AE0 /* yellowTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF61A11D7C1009E6AE0 /* yellowTile.png */; };
 		2A6C643119F0E5FA000E50B6 /* GJ_Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */; };
 		2A6C643219F0E5FA000E50B6 /* GJ_Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
@@ -258,6 +266,10 @@
 		2A2CE04719ED03D4003EEB14 /* blueTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueTile.png; sourceTree = "<group>"; };
 		2A40ABB619F62835007E6402 /* GJ_TileState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_TileState.cpp; path = ../Classes/GJ_TileState.cpp; sourceTree = "<group>"; };
 		2A40ABB719F62835007E6402 /* GJ_TileState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_TileState.h; path = ../Classes/GJ_TileState.h; sourceTree = "<group>"; };
+		2A518EF31A11D7C1009E6AE0 /* greenTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenTile.png; sourceTree = "<group>"; };
+		2A518EF41A11D7C1009E6AE0 /* orangeTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = orangeTile.png; sourceTree = "<group>"; };
+		2A518EF51A11D7C1009E6AE0 /* redTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = redTile.png; sourceTree = "<group>"; };
+		2A518EF61A11D7C1009E6AE0 /* yellowTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowTile.png; sourceTree = "<group>"; };
 		2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Level.cpp; path = ../Classes/GJ_Level.cpp; sourceTree = "<group>"; };
 		2A6C643019F0E5FA000E50B6 /* GJ_Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_Level.h; path = ../Classes/GJ_Level.h; sourceTree = "<group>"; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
@@ -505,6 +517,10 @@
 				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
 				1AFAF8BB16D35E4900DB1158 /* HelloWorld.png */,
 				2A2CE04719ED03D4003EEB14 /* blueTile.png */,
+				2A518EF31A11D7C1009E6AE0 /* greenTile.png */,
+				2A518EF41A11D7C1009E6AE0 /* orangeTile.png */,
+				2A518EF51A11D7C1009E6AE0 /* redTile.png */,
+				2A518EF61A11D7C1009E6AE0 /* yellowTile.png */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -675,9 +691,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
+				2A518EFD1A11D7C1009E6AE0 /* yellowTile.png in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
+				2A518EF91A11D7C1009E6AE0 /* orangeTile.png in Resources */,
 				2A2CE03D19EB8B31003EEB14 /* fonts in Resources */,
+				2A518EF71A11D7C1009E6AE0 /* greenTile.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
@@ -686,6 +705,7 @@
 				1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */,
 				2A2CE02F19E7BB97003EEB14 /* Graphics in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
+				2A518EFB1A11D7C1009E6AE0 /* redTile.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				1AFAF8BE16D35E4900DB1158 /* HelloWorld.png in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
@@ -704,10 +724,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				5087E75317EB910900C73F5D /* CloseNormal.png in Resources */,
+				2A518EF81A11D7C1009E6AE0 /* greenTile.png in Resources */,
 				2A2CE03E19EB8B31003EEB14 /* fonts in Resources */,
+				2A518EFA1A11D7C1009E6AE0 /* orangeTile.png in Resources */,
 				503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */,
 				5087E75417EB910900C73F5D /* CloseSelected.png in Resources */,
 				5087E75517EB910900C73F5D /* HelloWorld.png in Resources */,
+				2A518EFE1A11D7C1009E6AE0 /* yellowTile.png in Resources */,
+				2A518EFC1A11D7C1009E6AE0 /* redTile.png in Resources */,
 				2A2CE04919ED03D4003EEB14 /* blueTile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

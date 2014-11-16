@@ -39,10 +39,7 @@ public:
     // standard methods to implement
     virtual bool init();
     
-    // tile management
-    bool clearAllTiles();
-    bool clearPuzzleTiles();
-    bool clearPassiveTiles();
+    // tile creation
     bool createPuzzleTiles();
     bool createPassiveTiles();
     
@@ -51,9 +48,9 @@ public:
     bool unloadLevel();
     
    
-    // movement
+    // movement - what can be pushed into MapState class?
+    
     Vec2 tileCoordForPosition(Vec2 position);
-    Sprite * getTileForCoord(Vec2 positionCoord);
     Vec2 getPxforCoord(Vec2 inCoord);
     Vec2 getAdjacentPxCoord(Vec2 inCoord, int direction);
     Vec2 getAdjacentCoord(Vec2 inCoord, int direction);
@@ -61,14 +58,18 @@ public:
     void setActionForPuzzleTile(Sprite * theTile, Action * theAction);
     bool checkForTileGroups(void);
     void moveTiles(int dir);
+    void update(float dt);
+    void endOfMoveChecks(int dir);
     
     // instance vars
     int curLevel;
     int numTiles;
+    int curDirection;
     float posX, posY, tm_scale;
     Size parentVisibleSize;
     Vec2 parentOrigin;
-    
+    bool movesDone;
+    float timeElapsed;
     // visible to the Director, where the nodes are put into the mix
     Layer * theLayer;
     
@@ -83,11 +84,6 @@ private:
     
     // MapState
     MapState * theMap;
-    
-    // the cache of currently active "game" tileSprites
-    // these are the ones that the player is trying to get rid of
-    std::vector<Sprite*> puzzleTiles;
-    std::vector<Sprite*> passiveTiles;
   
 };
 

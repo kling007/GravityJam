@@ -26,47 +26,42 @@ enum Colors {
 // the state of each tile on the map at its properties
 
 struct TileState {
+    
+    Sprite * spritePtr;
+    
     Vec2 coordinates;
     int color;
     bool occupied;
     bool isStop;
-
-    // linked listness
-    // TileState * prev;
+    
+    // for union find
     TileState * parent;
     int rank;
     bool markedForDelete;
+    bool deleted;
+    bool moveInProgress;
 };
 
 typedef struct TileState TileState;
 
-//// collecting connected groups for deletion
-//
-//struct TileGroup {
-//    TileState * head;
-//    TileState * tail;
-//    int tileCount;
-//    int rank;
-//    int groupID;
-//};
-//
-//typedef struct TileGroup TileGroup;
 
 class MapState {
 
 public:
     MapState();
-    bool mapFull;
-    int sizeX, sizeY, numTiles, numGroups;
+
+    int sizeX, sizeY, numTiles, tileWidth, tileHeight;
     
-    // global operations
-    bool initMap(Size mapSize);
-    bool addTile(Vec2 loc);
+    bool initMap(Size mapSize, int tileWidth, int tileHeight);
+    void addTile(Vec2 loc);
     bool isLocInRange(Vec2 loc);
     
     void setTileOccupied(Vec2 loc);
     void setTileNotOccupied(Vec2 loc);
     bool isTileOccupied(Vec2 loc);
+    
+    void setSpriteForTile(Vec2 loc, Sprite * newSprite);
+    Sprite * getSpriteForTile(Vec2 loc);
     
     void setTileStop(Vec2 loc);
     void setTileNotStop(Vec2 loc);
@@ -76,19 +71,27 @@ public:
     void clearTileColor(Vec2 loc);
     int  getTileColor(Vec2 loc);
     
+    void setTileMoving(Vec2 loc);
+    void setTileNotMoving(Vec2 loc);
+    bool isTileMoving(Vec2 loc);
+    
     void setTileState(Vec2 loc, bool occupy, bool stop);
     
     // utility
     void moveTileState(Vec2 fromLoc, Vec2 toLoc);
     void copyTileState(Vec2 fromLoc, Vec2 toLoc);
+    void clearTileState(Vec2 loc);
+    bool checkTileToDeleteMark(Vec2 loc);
+    void setAsDeleted(Vec2 loc);
+    bool wasTileDeleted(Vec2 loc);
+    Vec2 convertPxToCoord(float x, float y);
+    void printState(void);
     
     // disjoint set methods
     TileState * makeSet(Vec2 loc);
-    void unionSets(TileState * setA, TileState * setB);
     TileState * findSet(TileState * loc);
-    bool sameComponent(Vec2 locA, Vec2 locB);
+    void unionSets(TileState * setA, TileState * setB);
     void connectComponents(void);
-    int deleteComponents(void);
     
 private:
     
@@ -98,8 +101,7 @@ private:
     
     TileState createTileState(Vec2 loc, bool occupy, bool stop);
     std::vector<std::vector<TileState>> mapState;
-    std::vector<TileState> occupiedTiles;
-//    std::vector<TileGroup> tileGroups;
+       
     
 };
 
