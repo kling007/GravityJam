@@ -44,6 +44,9 @@ public:
     bool createPassiveTiles();
     
     // level mgmt
+    int currentLevel();
+    bool setlevel(int newLevel);
+    bool reloadLevel(Layer * activeLayer);
     bool loadLevel(int levelNum, Layer * activeLayer);
     bool unloadLevel();
     

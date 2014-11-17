@@ -32,7 +32,10 @@ public:
     // level maps
     Level theLevel;
     bool initLevel(int levelNum);
-    bool closeLevel();
+    void closeLevel(void);
+    bool nextLevel(void);
+    void endLevel(float dt);
+    
     void update(float dt);
     
     // off switch callback method (func)
@@ -55,6 +58,7 @@ public:
     Score theScore;
     int gj_level, gj_timeInSeconds;
     unsigned short gj_hours, gj_minutes, gj_seconds;
+    bool faulted;
     
     // implement the "static create()" method manually
     CREATE_FUNC(GravityJamRoot);

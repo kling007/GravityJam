@@ -7,7 +7,10 @@
 //
 
 #include "GJ_Level.h"
+#include <string>
+#include <iostream>
 
+using string = std::basic_string<char>;
 
 // standard methods
 bool Level::init()
@@ -18,7 +21,8 @@ bool Level::init()
         return false;
     }
     
-    // not much to initialize here
+    parentVisibleSize = Director::getInstance()->getVisibleSize();
+    parentOrigin = Director::getInstance()->getVisibleOrigin();
     
     curLevel = 0;
     curDirection = 0;
@@ -131,22 +135,34 @@ bool Level::createPassiveTiles()
 // Top-level level management
 bool Level::loadLevel(int levelNum, Layer * activeLayer)
 {
-    parentVisibleSize = Director::getInstance()->getVisibleSize();
-    parentOrigin = Director::getInstance()->getVisibleOrigin();
-   
+
     // How do we check the map to see if we need to clear it, or will this only be called on a fresh level?
     // *******************
+    
+    // create the filename
+    string filePrefix = "Graphics/GJ_Level";
+    string fileSuffix = ".tmx";
+    string levelString = std::to_string(levelNum);
+    
+    string levelFileName = filePrefix+levelString+fileSuffix;
+    
+    std::cout<<levelFileName;
+    
     
     // place the tilemap
     // need to match the incoming levelNumber with the .tmx filename
     
     theMap = new MapState();
-    tileMap = TMXTiledMap::create("Graphics/GJ_Level2.tmx");
+    tileMap = TMXTiledMap::create(levelFileName);
+    if(!tileMap){return false;}
+    
     background = tileMap->getLayer("Background");
     metaLayer = tileMap->getLayer("Meta");
     metaLayer->setVisible(false);
     
-    
+    // *******************
+    // UH-OH! MAGIC NUMBER ALERT!!!
+    // *******************
     // the puzzle area is rooted at (3/16 * x, 1/6 * y)
     posX = parentOrigin.x + 0.1875*parentVisibleSize.width;
     posY = parentOrigin.y + parentVisibleSize.height/6.0;
@@ -176,6 +192,7 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
     tileMap->setScale(tm_scale);
     tileMap->setPosition(Vec2(posX, posY));
     activeLayer->addChild(tileMap, 0);
+    levelComplete = false;
     
     theMap->printState();
     
@@ -188,9 +205,9 @@ bool Level::unloadLevel()
     //*******************************************************
     
     // har har - this is far from complete
-    background->release();
-    metaLayer->release();
-    tileMap->release();
+    tileMap->removeAllChildrenWithCleanup(true);
+    tileMap->removeFromParentAndCleanup(true);
+    
     delete theMap;
     
     return true;
@@ -523,7 +540,11 @@ void Level::endOfMoveChecks(int dir)
     if (!remainingOccupiedTiles) {
         // Our end-of-level code goes here
         levelComplete = true;
-        printf("Level Complete!\n");
+        printf("Level %i Complete!\n", curLevel);
+
+        // run end of level function]
+        printf("Preparing new level...");
+        tileMap->getParent()->scheduleUpdate();
     }
     
 }
