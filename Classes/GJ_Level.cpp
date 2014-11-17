@@ -25,7 +25,7 @@ bool Level::init()
     posX = 0.0f;
     posY = 0.0f;
     tm_scale = 0.0f;
-    //this-> scheduleUpdate();
+    levelComplete = false;
     
     return true;
 }
@@ -399,6 +399,10 @@ void Level::moveTiles(int dir)
     // construct the movement action in direction dir
     // don't move tiles that are already moving until they stop.
     
+    if (levelComplete) { // buzzoff, you
+        return;
+    }
+    
     //printf("Before: \n");
     //theMap->printState();
     
@@ -504,7 +508,6 @@ void Level::endOfMoveChecks(int dir)
     bool remainingOccupiedTiles = false;
     
     printf("movesDone = %i\n", movesDone);
-
     
     // clear deleted tiles
     for (int j=0; j<theMap->sizeX; j++) {
@@ -519,8 +522,13 @@ void Level::endOfMoveChecks(int dir)
     
     if (!remainingOccupiedTiles) {
         // Our end-of-level code goes here
-        CCLOG("Level Complete!");
+        levelComplete = true;
+        printf("Level Complete!\n");
     }
- 
     
+}
+
+bool Level::isCurrentLevelComplete(void)
+{
+    return levelComplete;
 }

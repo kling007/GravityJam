@@ -139,7 +139,7 @@ bool GravityJamRoot::setupTouches()
     
     
     //Process the touch end event
-    touchListener->onTouchEnded = [this](Touch* touch, Event* event){
+    touchListener->onTouchEnded = [&](Touch* touch, Event* event){
         
         auto target = static_cast<Node*>(event->getCurrentTarget());
         Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());

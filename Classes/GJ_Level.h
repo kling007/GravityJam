@@ -43,23 +43,24 @@ public:
     bool createPuzzleTiles();
     bool createPassiveTiles();
     
-    // levels
+    // level mgmt
     bool loadLevel(int levelNum, Layer * activeLayer);
     bool unloadLevel();
     
    
-    // movement - what can be pushed into MapState class?
-    
+    // position - should some/all of this be pushed into MapState class?
     Vec2 tileCoordForPosition(Vec2 position);
     Vec2 getPxforCoord(Vec2 inCoord);
     Vec2 getAdjacentPxCoord(Vec2 inCoord, int direction);
     Vec2 getAdjacentCoord(Vec2 inCoord, int direction);
+    
+    // moving tiles
     bool createPuzzleTileMove(Sprite * theTile, int direction);
     void setActionForPuzzleTile(Sprite * theTile, Action * theAction);
-    bool checkForTileGroups(void);
     void moveTiles(int dir);
     void update(float dt);
     void endOfMoveChecks(int dir);
+    bool isCurrentLevelComplete(void);
     
     // instance vars
     int curLevel;
@@ -69,9 +70,8 @@ public:
     Size parentVisibleSize;
     Vec2 parentOrigin;
     bool movesDone;
+    bool levelComplete;
     float timeElapsed;
-    // visible to the Director, where the nodes are put into the mix
-    Layer * theLayer;
     
     // Cocos2d macro
     CREATE_FUNC(Level);
