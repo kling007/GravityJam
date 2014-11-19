@@ -50,6 +50,7 @@
 		2A518EFE1A11D7C1009E6AE0 /* yellowTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF61A11D7C1009E6AE0 /* yellowTile.png */; };
 		2A6C643119F0E5FA000E50B6 /* GJ_Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */; };
 		2A6C643219F0E5FA000E50B6 /* GJ_Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */; };
+		2AF547F31A1AC43900E78A5B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AF547F21A1AC43900E78A5B /* Images.xcassets */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
@@ -272,6 +273,7 @@
 		2A518EF61A11D7C1009E6AE0 /* yellowTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowTile.png; sourceTree = "<group>"; };
 		2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Level.cpp; path = ../Classes/GJ_Level.cpp; sourceTree = "<group>"; };
 		2A6C643019F0E5FA000E50B6 /* GJ_Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_Level.h; path = ../Classes/GJ_Level.h; sourceTree = "<group>"; };
+		2AF547F21A1AC43900E78A5B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Gravity_Jam iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -511,6 +513,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2AF547F21A1AC43900E78A5B /* Images.xcassets */,
 				2A2CE03C19EB8B31003EEB14 /* fonts */,
 				2A2CE02E19E7BB97003EEB14 /* Graphics */,
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
@@ -699,6 +702,7 @@
 				2A518EF71A11D7C1009E6AE0 /* greenTile.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
+				2AF547F31A1AC43900E78A5B /* Images.xcassets in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
@@ -833,6 +837,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -864,6 +870,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
