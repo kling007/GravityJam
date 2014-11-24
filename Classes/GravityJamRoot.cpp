@@ -6,7 +6,7 @@ USING_NS_CC;
 Scene* GravityJamRoot::createScene()
 {
     // 'scene', 'layer' are autorelease objects
-    auto scene = Scene::create();
+    Scene * scene = Scene::create();
     auto layer = GravityJamRoot::create();
     scene->retain();
     layer->retain();
@@ -18,7 +18,7 @@ Scene* GravityJamRoot::createScene()
 
 bool GravityJamRoot::init()
 {
-    // ---> super init()
+    // super init()
     if ( !Layer::init() )
     {
         return false;
@@ -50,11 +50,11 @@ bool GravityJamRoot::init()
     
     // TO DO ---> get our resolution/scaling straight for different devices
     
-    if(!this->setupTouches())
-    {
-        CCLOG("Error setting up Touch listeners!");
-        return false;
-    }
+//    if(!this->setupTouches())
+//    {
+//        CCLOG("Error setting up Touch listeners!");
+//        return false;
+//    }
     
     /*
      * Playing around for now...
@@ -63,21 +63,22 @@ bool GravityJamRoot::init()
         
     // testing level and HUD creation
 
-    theLevel.init();
-    if(!this->initLevel(gj_level))
-    {
-        CCLOG("Error initializing levels.");
-        return false;
-    }
+//    theLevel.init();
+//    if(!this->initLevel(gj_level))
+//    {
+//        CCLOG("Error initializing levels.");
+//        return false;
+//    }
     
-    // HUD
-    if(!this->initHUD())
-    {
-        CCLOG("Error initializing HUD.");
-        return false;
-    }
+//    // HUD
+//    if(!this->initHUD())
+//    {
+//        CCLOG("Error initializing HUD.");
+//        return false;
+//    }
     
-    this-> scheduleUpdate();
+    Director::getInstance()->pushScene(MainMenu::createScene());
+    this->scheduleUpdate();
     
     return true;
 }
@@ -96,7 +97,8 @@ bool GravityJamRoot::initHUD()
 bool GravityJamRoot::initLevel(int levelNum)
 {
     // Is there anything we need to do before loading the level? The Level class should handle most of it.
-    if(theLevel.loadLevel(levelNum, this))
+//    if(theLevel.loadLevel(levelNum, this))
+    if(theLevel.loadLevel(levelNum))
     {
         return true;
     }

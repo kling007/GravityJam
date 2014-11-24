@@ -25,6 +25,8 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		2A190A451A21A7610019AE43 /* GJ_MainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A190A431A21A7610019AE43 /* GJ_MainMenu.cpp */; };
+		2A190A461A21A7610019AE43 /* GJ_MainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A190A431A21A7610019AE43 /* GJ_MainMenu.cpp */; };
 		2A2CE02F19E7BB97003EEB14 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE02E19E7BB97003EEB14 /* Graphics */; };
 		2A2CE03419EB3A4B003EEB14 /* GJ_HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE03019EB3A4B003EEB14 /* GJ_HUD.cpp */; };
 		2A2CE03519EB3A4B003EEB14 /* GJ_HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE03019EB3A4B003EEB14 /* GJ_HUD.cpp */; };
@@ -254,6 +256,8 @@
 		1D6058910D05DD3D006BFB54 /* Gravity_Jam iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gravity_Jam iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2A190A431A21A7610019AE43 /* GJ_MainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_MainMenu.cpp; path = ../Classes/GJ_MainMenu.cpp; sourceTree = "<group>"; };
+		2A190A441A21A7610019AE43 /* GJ_MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_MainMenu.h; path = ../Classes/GJ_MainMenu.h; sourceTree = "<group>"; };
 		2A2CE02E19E7BB97003EEB14 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
 		2A2CE03019EB3A4B003EEB14 /* GJ_HUD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_HUD.cpp; path = ../Classes/GJ_HUD.cpp; sourceTree = "<group>"; };
 		2A2CE03119EB3A4B003EEB14 /* GJ_HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_HUD.h; path = ../Classes/GJ_HUD.h; sourceTree = "<group>"; };
@@ -398,6 +402,8 @@
 				2A6C643019F0E5FA000E50B6 /* GJ_Level.h */,
 				2A40ABB619F62835007E6402 /* GJ_TileState.cpp */,
 				2A40ABB719F62835007E6402 /* GJ_TileState.h */,
+				2A190A431A21A7610019AE43 /* GJ_MainMenu.cpp */,
+				2A190A441A21A7610019AE43 /* GJ_MainMenu.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -757,6 +763,7 @@
 				2A40ABB819F62835007E6402 /* GJ_TileState.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				2A2CE04519EC8706003EEB14 /* GJ_Settings.cpp in Sources */,
+				2A190A451A21A7610019AE43 /* GJ_MainMenu.cpp in Sources */,
 				1AFAF8B816D35DE700DB1158 /* GravityJamRoot.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -769,6 +776,7 @@
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
 				2A40ABB919F62835007E6402 /* GJ_TileState.cpp in Sources */,
 				2A2CE03B19EB55C8003EEB14 /* VisibleRect.cpp in Sources */,
+				2A190A461A21A7610019AE43 /* GJ_MainMenu.cpp in Sources */,
 				5087E75817EB910900C73F5D /* GravityJamRoot.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
 				2A6C643219F0E5FA000E50B6 /* GJ_Level.cpp in Sources */,

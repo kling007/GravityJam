@@ -12,7 +12,21 @@
 
 using string = std::basic_string<char>;
 
-// standard methods
+// initialization
+Scene* Level::createScene()
+{
+    // 'scene', 'layer' are autorelease objects
+    Scene * scene = Scene::create();
+    auto layer = Level::create();
+    scene->retain();
+    layer->retain();
+    scene->addChild(layer);
+    
+    // return the scene
+    return scene;
+}
+
+
 bool Level::init()
 {
     // init the super
@@ -24,15 +38,123 @@ bool Level::init()
     parentVisibleSize = Director::getInstance()->getVisibleSize();
     parentOrigin = Director::getInstance()->getVisibleOrigin();
     
-    curLevel = 0;
+    // setup touch handling
+    if(!setupTouches())
+    {
+        printf("Error setting up touch!\n");
+    }
+    
+    // this is where we should load any persistent data for a player
+    // particularly the score and level number
+    
+    curLevel = 1;
     curDirection = 0;
     posX = 0.0f;
     posY = 0.0f;
     tm_scale = 0.0f;
     levelComplete = false;
     
+    loadLevel(curLevel);
+    
     return true;
 }
+
+// Touch handling
+
+bool Level::setupTouches()
+{
+    // set up touch listening - one at a time
+    touchListener = EventListenerTouchOneByOne::create();
+    touchListener->setSwallowTouches(true);
+    touchListener->retain();
+    
+    touchListener->onTouchBegan = [this](Touch* touch, Event* event)
+    {
+        
+        // get the node out of the event, cast it to Node
+        auto target = static_cast<Node*>(event->getCurrentTarget());
+        
+        //Get the position of the current point relative to node space of this
+        Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());
+        Size s = target->getContentSize();
+        Rect rect = Rect(0, 0, s.width, s.height);
+        
+        //Check the click area
+        if (rect.containsPoint(locationInNode))
+        {
+            // set the touch starting point
+            this->touchBegin.set(locationInNode);
+            return true;
+        }
+        return false;
+    };
+    
+    touchListener->onTouchMoved = [](Touch* touch, Event* event){
+        // Do nothing. perhaps modify a compass to show swipe direction?
+    };
+    
+    
+    //Process the touch end event
+    touchListener->onTouchEnded = [&](Touch* touch, Event* event){
+        // reject touch ended if we are in a faulted state so we don't crash
+        // alternatively, we should disable the listener and prompt the user to return to main menu, etc.
+//        if (faulted) {
+//            return;
+//        }
+        auto target = static_cast<Node*>(event->getCurrentTarget());
+        Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());
+        this->touchEnd.set(locationInNode);
+        
+        //
+        int dir = this->getTouchDirection();
+        CCLOG("Direction detected: %i \n", dir);
+        
+        moveTiles(dir);
+        
+        // check for end of level condition, additional moves
+        endOfMoveChecks(dir);
+        
+    };
+    
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+    
+    return true;
+}
+
+int Level::getTouchDirection()
+{
+    // **** need to add a policy for extra short gestures?
+    
+    Vec2 touchVector = Vec2(touchBegin, touchEnd);
+    float swipeX = fabsf(touchEnd.x - touchBegin.x);
+    float swipeY = fabsf(touchEnd.y - touchBegin.y);
+    
+    
+    if(swipeX>swipeY) /* swipe left/right */
+    {
+        if (touchEnd.x>touchBegin.x) {
+            // right swipe
+            return RIGHT;
+        } else {
+            // left swipe
+            return LEFT;
+        }
+        
+    } else { /* swipe up/down */
+        
+        if (touchEnd.y>touchBegin.y) {
+            // up swipe
+            return UP;
+        } else {
+            // down swipe
+            return DOWN;
+        }
+    }
+    
+    // default to 0==NO direction
+    return NO_DIRECTION;
+}
+
 
 
 bool Level::createPuzzleTiles()
@@ -133,7 +255,7 @@ bool Level::createPassiveTiles()
 }
 
 // Top-level level management
-bool Level::loadLevel(int levelNum, Layer * activeLayer)
+bool Level::loadLevel(int levelNum)
 {
 
     // How do we check the map to see if we need to clear it, or will this only be called on a fresh level?
@@ -143,7 +265,6 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
     string filePrefix = "Graphics/GJ_Level";
     string fileSuffix = ".tmx";
     string levelString = std::to_string(levelNum);
-    
     string levelFileName = filePrefix+levelString+fileSuffix;
     
     std::cout<<levelFileName;
@@ -155,6 +276,7 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
     theMap = new MapState();
     tileMap = TMXTiledMap::create(levelFileName);
     if(!tileMap){return false;}
+    else {curLevel = levelNum;}
     
     background = tileMap->getLayer("Background");
     metaLayer = tileMap->getLayer("Meta");
@@ -163,14 +285,22 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
     // *******************
     // UH-OH! MAGIC NUMBER ALERT!!!
     // *******************
-    // the puzzle area is rooted at (3/16 * x, 1/6 * y)
-    posX = parentOrigin.x + 0.1875*parentVisibleSize.width;
-    posY = parentOrigin.y + parentVisibleSize.height/6.0;
+    // old landscape version
+    // the puzzle area was rooted at (3/16 * x, 1/6 * y)
+    //    posX = parentOrigin.x + 0.1875*parentVisibleSize.width;
+    //    posY = parentOrigin.y + parentVisibleSize.height/6.0;
+    
+    // portrait version
+    posX = parentOrigin.x;
+    posY = parentOrigin.y + parentVisibleSize.height/4.0;
     
     tileMap->setAnchorPoint(Vec2(0, 0));
     Size mapSize = tileMap->getMapSize();
     numTiles = ceil(mapSize.height*mapSize.width);
-    tm_scale = 0.375*parentVisibleSize.width/tileMap->getContentSize().width;
+    
+    // going to have to find a better way to scale based on size
+//    tm_scale = 0.375*parentVisibleSize.width/tileMap->getContentSize().width;
+    tm_scale = parentVisibleSize.width/tileMap->getContentSize().width;
     
     // init our map state tracking data structure
     // actual initial state is loaded/created in the create funcs below
@@ -191,7 +321,7 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
     
     tileMap->setScale(tm_scale);
     tileMap->setPosition(Vec2(posX, posY));
-    activeLayer->addChild(tileMap, 0);
+    this->addChild(tileMap, 0);
     levelComplete = false;
     
     theMap->printState();
@@ -514,6 +644,12 @@ void Level::moveTiles(int dir)
 
 void Level::update(float dt)
 {
+    if(isCurrentLevelComplete() && !faulted)
+    {
+        // run end of level function]
+        printf("Level %i complete. Preparing new level...", curLevel);
+        scheduleOnce(schedule_selector(Level::endLevel), 0.0);
+    }
     moveTiles(curDirection);
 }
 
@@ -547,6 +683,35 @@ void Level::endOfMoveChecks(int dir)
         tileMap->getParent()->scheduleUpdate();
     }
     
+}
+
+void Level::closeLevel(void)
+{
+    // To do: what needs to happen between levels?
+    // probably unload level data, update event listeners, etc.
+    
+    unloadLevel();
+}
+
+bool Level::nextLevel(void)
+{
+    curLevel++;
+    
+    // we should check the level against a max, but I don't know how to determine that yet.
+    // for now, we'll let that fail happen in Level::initLevel()
+    return loadLevel(curLevel);
+}
+
+void Level::endLevel(float dt)
+{
+    // we will need all of the end of level graphics here
+    // for now, just unload the level and load the next one
+    closeLevel();
+    if(!nextLevel())
+    {
+        printf("Error opening level %i", curLevel);
+        faulted = true;
+    }
 }
 
 bool Level::isCurrentLevelComplete(void)

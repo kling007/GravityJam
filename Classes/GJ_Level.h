@@ -37,7 +37,15 @@ class Level : public cocos2d::Layer
     
 public:
     // standard methods to implement
+    static cocos2d::Scene* createScene();
     virtual bool init();
+    
+    // Touch handling
+    bool setupTouches();
+    int getTouchDirection();
+    EventListenerTouchOneByOne * touchListener;
+    Vec2 touchBegin;
+    Vec2 touchEnd;
     
     // tile creation
     bool createPuzzleTiles();
@@ -47,9 +55,11 @@ public:
     int currentLevel();
     bool setlevel(int newLevel);
     bool reloadLevel(Layer * activeLayer);
-    bool loadLevel(int levelNum, Layer * activeLayer);
+    bool loadLevel(int levelNum);
     bool unloadLevel();
-    
+    void closeLevel(void);
+    bool nextLevel(void);
+    void endLevel(float dt);
    
     // position - should some/all of this be pushed into MapState class?
     Vec2 tileCoordForPosition(Vec2 position);
@@ -74,6 +84,7 @@ public:
     Vec2 parentOrigin;
     bool movesDone;
     bool levelComplete;
+    bool faulted;
     float timeElapsed;
     
     // Cocos2d macro
