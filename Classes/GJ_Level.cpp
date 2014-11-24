@@ -53,6 +53,7 @@ bool Level::init()
     posY = 0.0f;
     tm_scale = 0.0f;
     levelComplete = false;
+    movesQueued = 0;
     
     loadLevel(curLevel);
     
@@ -296,11 +297,12 @@ bool Level::loadLevel(int levelNum)
     
     tileMap->setAnchorPoint(Vec2(0, 0));
     Size mapSize = tileMap->getMapSize();
+    float borderSize = 0.0;
     numTiles = ceil(mapSize.height*mapSize.width);
     
     // going to have to find a better way to scale based on size
 //    tm_scale = 0.375*parentVisibleSize.width/tileMap->getContentSize().width;
-    tm_scale = parentVisibleSize.width/tileMap->getContentSize().width;
+    tm_scale = parentVisibleSize.width/tileMap->getContentSize().width ;
     
     // init our map state tracking data structure
     // actual initial state is loaded/created in the create funcs below
@@ -320,7 +322,7 @@ bool Level::loadLevel(int levelNum)
     // will change after we have a design fix
     
     tileMap->setScale(tm_scale);
-    tileMap->setPosition(Vec2(posX, posY));
+    tileMap->setPosition(Vec2(posX+borderSize, posY));
     this->addChild(tileMap, 0);
     levelComplete = false;
     
@@ -511,6 +513,7 @@ bool Level::createPuzzleTileMove(Sprite * theTile, int direction)
         // I'm concerned that the deleteSeq action may still be running when movetiles does its thing,
         // and may try to move a tile just as it is being deleted.
         theMap->setTileNotMoving(tileLoc);
+        if(movesQueued>0){movesQueued--;}
     }
     );
     
@@ -547,6 +550,7 @@ void Level::moveTiles(int dir)
     // don't move tiles that are already moving until they stop.
     
     if (levelComplete) { // buzzoff, you
+        
         return;
     }
     
@@ -578,7 +582,8 @@ void Level::moveTiles(int dir)
                 if (theTile != nullptr && !moving && !delMar) {
                     if(createPuzzleTileMove(theTile, dir))
                     {
-                    movesDone = true;
+                        movesDone = true;
+                        movesQueued++;
                     }
                 }
             }
@@ -594,6 +599,7 @@ void Level::moveTiles(int dir)
                     if(createPuzzleTileMove(theTile, dir))
                     {
                         movesDone = true;
+                        movesQueued++;
                     }
                 }
             }
@@ -609,6 +615,7 @@ void Level::moveTiles(int dir)
                     if(createPuzzleTileMove(theTile, dir))
                     {
                         movesDone = true;
+                        movesQueued++;
                     }
                 }
             }
@@ -624,6 +631,7 @@ void Level::moveTiles(int dir)
                     if(createPuzzleTileMove(theTile, dir))
                     {
                         movesDone = true;
+                        movesQueued++;
                     }
                 }
             }
@@ -650,7 +658,14 @@ void Level::update(float dt)
         printf("Level %i complete. Preparing new level...", curLevel);
         scheduleOnce(schedule_selector(Level::endLevel), 0.0);
     }
-    moveTiles(curDirection);
+    // moveTiles(curDirection);
+    // endOfMoveChecks(curDirection);
+    
+    // we only want to move tiles if queued moves are complete
+    if (movesQueued ==0) {
+        moveTiles(curDirection);
+        //endOfMoveChecks(curDirection);
+    }
 }
 
 void Level::endOfMoveChecks(int dir)
@@ -662,7 +677,7 @@ void Level::endOfMoveChecks(int dir)
     
     printf("movesDone = %i\n", movesDone);
     
-    // clear deleted tiles
+    // check for occupied tiles
     for (int j=0; j<theMap->sizeX; j++) {
         for (int i=0; i<theMap->sizeY; i++) {
 
@@ -676,9 +691,10 @@ void Level::endOfMoveChecks(int dir)
     if (!remainingOccupiedTiles) {
         // Our end-of-level code goes here
         levelComplete = true;
+        curDirection = NO_DIRECTION;
         printf("Level %i Complete!\n", curLevel);
 
-        // run end of level function]
+        // run end of level function
         printf("Preparing new level...");
         tileMap->getParent()->scheduleUpdate();
     }
@@ -689,7 +705,7 @@ void Level::closeLevel(void)
 {
     // To do: what needs to happen between levels?
     // probably unload level data, update event listeners, etc.
-    
+    printf("Closing level...\n");
     unloadLevel();
 }
 
@@ -707,6 +723,7 @@ void Level::endLevel(float dt)
     // we will need all of the end of level graphics here
     // for now, just unload the level and load the next one
     closeLevel();
+    
     if(!nextLevel())
     {
         printf("Error opening level %i", curLevel);
@@ -716,5 +733,19 @@ void Level::endLevel(float dt)
 
 bool Level::isCurrentLevelComplete(void)
 {
+    // this is true
+    levelComplete = true;
+    
+    // unless we find occupied tiles
+
+    for (int j=0; j<theMap->sizeX; j++) {
+        for (int i=0; i<theMap->sizeY; i++) {
+            
+            // check if there are any occupied tiles
+            if (theMap->isTileOccupied(Vec2(i,j))) {
+                levelComplete = false;
+            }
+        }
+    }
     return levelComplete;
 }

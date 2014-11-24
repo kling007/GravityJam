@@ -83,6 +83,7 @@ public:
     Size parentVisibleSize;
     Vec2 parentOrigin;
     bool movesDone;
+    int  movesQueued;
     bool levelComplete;
     bool faulted;
     float timeElapsed;
