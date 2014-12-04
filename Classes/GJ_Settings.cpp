@@ -38,5 +38,7 @@ namespace GJ_Settings {
     std::string quitButtonNormPath = "Graphics/Buttons/quitNormal.png";
     std::string quitButtonSelPath = "Graphics/Buttons/quitSelected.png";
     std::string gravityJamLabelPath = "Graphics/Buttons/label.png";
+    std::string continueButtonNormPath = "Graphics/Buttons/continueNormal.png";
+    std::string continueButtonSelPath = "Graphics/Buttons/continueSelected.png";
 
 }

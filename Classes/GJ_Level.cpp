@@ -658,13 +658,10 @@ void Level::update(float dt)
         printf("Level %i complete. Preparing new level...", curLevel);
         scheduleOnce(schedule_selector(Level::endLevel), 0.0);
     }
-    // moveTiles(curDirection);
-    // endOfMoveChecks(curDirection);
     
     // we only want to move tiles if queued moves are complete
     if (movesQueued ==0) {
         moveTiles(curDirection);
-        //endOfMoveChecks(curDirection);
     }
 }
 
@@ -694,7 +691,9 @@ void Level::endOfMoveChecks(int dir)
         curDirection = NO_DIRECTION;
         printf("Level %i Complete!\n", curLevel);
 
-        // run end of level function
+        // run end of level function - this will schedule our endLevel method
+        // BUG! IF THERE IS NO CURRENT LEVEL, IT CANNOT HAVE A PARENT?
+        // CRASH AND BURNS is what
         printf("Preparing new level...");
         tileMap->getParent()->scheduleUpdate();
     }
@@ -720,15 +719,17 @@ bool Level::nextLevel(void)
 
 void Level::endLevel(float dt)
 {
-    // we will need all of the end of level graphics here
-    // for now, just unload the level and load the next one
-    closeLevel();
     
-    if(!nextLevel())
-    {
-        printf("Error opening level %i", curLevel);
-        faulted = true;
-    }
+    // run the modal layer here. What is below will need to be in another method that the Victory class schedules
+    
+    // turn off touches
+    
+    touchListener->setEnabled(false);
+    
+    victoryScreen = Victory::create();
+    
+    this->addChild(victoryScreen, 1);
+    
 }
 
 bool Level::isCurrentLevelComplete(void)
@@ -748,4 +749,20 @@ bool Level::isCurrentLevelComplete(void)
         }
     }
     return levelComplete;
+}
+
+void Level::endVictoryScreen(float dt)
+{
+    victoryScreen->removeFromParentAndCleanup(true);
+
+    closeLevel();
+
+    if(!nextLevel())
+    {
+        printf("Error opening level %i", curLevel);
+        faulted = true;
+    }
+
+    touchListener->setEnabled(true);
+    
 }

@@ -43,6 +43,8 @@ namespace GJ_Settings {
     extern std::string quitButtonNormPath;
     extern std::string quitButtonSelPath;
     extern std::string gravityJamLabelPath;
+    extern std::string continueButtonNormPath;
+    extern std::string continueButtonSelPath;
 
 }
 

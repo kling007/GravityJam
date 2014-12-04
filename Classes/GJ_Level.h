@@ -23,6 +23,7 @@
 
 #include "cocos2d.h"
 #include "GJ_TileState.h"
+#include "GJ_Victory.h"
 
 USING_NS_CC;
 
@@ -60,6 +61,7 @@ public:
     void closeLevel(void);
     bool nextLevel(void);
     void endLevel(float dt);
+    void endVictoryScreen(float dt);
    
     // position - should some/all of this be pushed into MapState class?
     Vec2 tileCoordForPosition(Vec2 position);
@@ -99,7 +101,7 @@ private:
     
     // MapState
     MapState * theMap;
-  
+    Victory * victoryScreen;
 };
 
 #endif /* defined(__Gravity_Jam__GJ_Level__) */

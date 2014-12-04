@@ -48,7 +48,6 @@ private:
     MenuItem * optionsButton;
     MenuItem * quitButton;
     
-    
     cocos2d::Vector<cocos2d::MenuItem*> menuButtons;
     LayerColor * colorLayer;
 };
