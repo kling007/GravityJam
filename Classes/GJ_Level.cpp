@@ -336,7 +336,8 @@ bool Level::unloadLevel()
     // THIS NEEDS TO BE FIXED TO UNLOAD THE LEVEL PROPERLY!!!
     //*******************************************************
     
-    // har har - this is far from complete
+    // What else needs release() or delete()?
+    
     tileMap->removeAllChildrenWithCleanup(true);
     tileMap->removeFromParentAndCleanup(true);
     
@@ -705,6 +706,7 @@ void Level::closeLevel(void)
     // To do: what needs to happen between levels?
     // probably unload level data, update event listeners, etc.
     printf("Closing level...\n");
+    
     unloadLevel();
 }
 
@@ -720,8 +722,7 @@ bool Level::nextLevel(void)
 void Level::endLevel(float dt)
 {
     
-    // run the modal layer here. What is below will need to be in another method that the Victory class schedules
-    
+    // run the modal layer here.
     // turn off touches
     
     touchListener->setEnabled(false);
@@ -729,6 +730,7 @@ void Level::endLevel(float dt)
     victoryScreen = Victory::create();
     
     this->addChild(victoryScreen, 1);
+    victoryScreen->runAction(FadeTo::create(0.25, 125));
     
 }
 
@@ -753,8 +755,7 @@ bool Level::isCurrentLevelComplete(void)
 
 void Level::endVictoryScreen(float dt)
 {
-    victoryScreen->removeFromParentAndCleanup(true);
-
+    // Swap levels
     closeLevel();
 
     if(!nextLevel())
@@ -762,7 +763,11 @@ void Level::endVictoryScreen(float dt)
         printf("Error opening level %i", curLevel);
         faulted = true;
     }
-
+    
+    // get rid of the victory screen
+    victoryScreen->removeFromParentAndCleanup(true);
+    
+    // re-enable touch
     touchListener->setEnabled(true);
     
 }

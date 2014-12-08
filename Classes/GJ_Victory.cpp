@@ -12,7 +12,7 @@
 bool Victory::init()
 {
     // init the super
-    if ( !LayerColor::initWithColor(Color4B(231, 231, 222, 120))) {
+    if ( !LayerColor::initWithColor(Color4B(205, 203, 166, 120))) {
         
         return false;
     }
@@ -37,8 +37,8 @@ bool Victory::init()
     
     Size dialogSize = dialog->getBoundingBox().size;
     
-    int posX = (parentVisibleSize.width-dialogSize.width)/2.0;
-    int posY = (parentVisibleSize.height-dialogSize.height)/2.0;
+    posX = (parentVisibleSize.width-dialogSize.width)/2.0;
+    posY = (parentVisibleSize.height-dialogSize.height)/2.0;
     
     auto move = MoveTo::create(1.0, Vec2(posX, posY));
     auto bounceIn = EaseElasticOut::create(move->clone());
@@ -75,21 +75,29 @@ bool Victory::createMenu(void)
     
 }
 
-void Victory::endScreen(void)
-{
-    
-}
-
-void Victory::clickButton(Ref * sender)
+void Victory::endScreen(float dt)
 {
     Node * parent = this->getParent();
     Level * theLevel = dynamic_cast<Level*>(parent);
-    
     if(theLevel != nullptr)
     {
         theLevel->endVictoryScreen(0.0);
     }
+}
+
+void Victory::clickButton(Ref * sender)
+{
+    
+    Size dialogSize = dialog->getBoundingBox().size;
+    auto move = MoveTo::create(1.0, Vec2(posX, -dialogSize.height));
+    auto bounceOut = EaseElasticOut::create(move->clone());
+    
+    
+    dialog->runAction(bounceOut);
+    this->runAction(FadeOut::create(1.0));
+    scheduleOnce(schedule_selector(Victory::endScreen), 0.5);
+    
     // else, don't do much else
-    printf("Click!!!\n");
+    // printf("Click!!!\n");
     
 }

@@ -20,9 +20,10 @@ USING_NS_CC;
 class Victory : public cocos2d::LayerColor
 {
 public:
+    int posX, posY;
     virtual bool init();
     bool createMenu(void);
-    void endScreen(void);
+    void endScreen(float dt);
     
     //EventListenerTouchOneByOne * touchListener;
     void clickButton(Ref * sender);
