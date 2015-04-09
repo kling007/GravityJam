@@ -226,6 +226,7 @@ bool Level::createPassiveTiles()
         };
     };
     
+    Value * tileVals;
     ValueMap tileProperties;
     int theGID;
     
@@ -238,7 +239,16 @@ bool Level::createPassiveTiles()
         {
             Vec2 testLoc = Vec2(i, j);
             theGID = metaLayer->getTileGIDAt(testLoc);
-            tileProperties = (tileMap->getPropertiesForGID(theGID)).asValueMap();
+            
+            if(tileMap->getPropertiesForGID(theGID, &tileVals))
+            {
+                tileProperties=tileVals->asValueMap();
+            }
+            else
+            {
+                // eat shit here.
+            }
+            
             CCLOG("metaLayer[%i][%i]", i,j);
             CCLOG("GID: %i\n", theGID);
             if (theGID != 0) {
@@ -263,12 +273,12 @@ bool Level::loadLevel(int levelNum)
     // *******************
     
     // create the filename
-    string filePrefix = "Graphics/GJ_Level";
+    string filePrefix = "Graphics/Levels2.0/GJ_Level";
     string fileSuffix = ".tmx";
     string levelString = std::to_string(levelNum);
     string levelFileName = filePrefix+levelString+fileSuffix;
     
-    std::cout<<levelFileName;
+    std::cout<<levelFileName<<"\n";
     
     
     // place the tilemap
@@ -276,7 +286,11 @@ bool Level::loadLevel(int levelNum)
     
     theMap = new MapState();
     tileMap = TMXTiledMap::create(levelFileName);
-    if(!tileMap){return false;}
+    if(!tileMap){
+        /************/
+        // A weak way to do this, but if we are out of levels this is where we can exit the game and do whatever
+        return false;
+    }
     else {curLevel = levelNum;}
     
     background = tileMap->getLayer("Background");
@@ -477,7 +491,6 @@ bool Level::createPuzzleTileMove(Sprite * theTile, int direction)
     }
     
     // create a lamdba to execute at the end of the action so our tile can delete itself from the map
-    // yay thread un-safeness
     
     auto checkDelete = CallFuncN::create([&](Node * theTile)
     {
@@ -571,7 +584,6 @@ void Level::moveTiles(int dir)
     // these sentinels indicate whether we need to check for grouped colors and/or if we need to delete tiles and recurse
     movesDone = false;
     
-    // this will be the site of many step throughs as puzzles get more complex
     if(dir==UP)
     {
         for (x=maxX; x>=0; x--) {
@@ -660,7 +672,7 @@ void Level::update(float dt)
         scheduleOnce(schedule_selector(Level::endLevel), 0.0);
     }
     
-    // we only want to move tiles if queued moves are complete
+    // we only want to move tiles if queued moves are already complete
     if (movesQueued ==0) {
         moveTiles(curDirection);
     }
@@ -668,7 +680,7 @@ void Level::update(float dt)
 
 void Level::endOfMoveChecks(int dir)
 {
-    // TODOs: do scoring?, if level is complete, ask parent to unload the level
+    // if level is complete, ask parent to unload the level
     // check to see if level is complete
     
     bool remainingOccupiedTiles = false;
@@ -754,8 +766,7 @@ bool Level::isCurrentLevelComplete(void)
 }
 
 void Level::endVictoryScreen(float dt)
-{
-    // Swap levels
+{   // Swap levels
     closeLevel();
 
     if(!nextLevel())

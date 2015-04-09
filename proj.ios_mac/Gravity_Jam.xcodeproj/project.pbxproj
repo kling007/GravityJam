@@ -281,6 +281,7 @@
 		2A518EF61A11D7C1009E6AE0 /* yellowTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowTile.png; sourceTree = "<group>"; };
 		2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Level.cpp; path = ../Classes/GJ_Level.cpp; sourceTree = "<group>"; };
 		2A6C643019F0E5FA000E50B6 /* GJ_Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_Level.h; path = ../Classes/GJ_Level.h; sourceTree = "<group>"; };
+		2AEFAE3B1A48968D00CED9D6 /* GraphicsSummary */ = {isa = PBXFileReference; lastKnownFileType = text; name = GraphicsSummary; path = ../GraphicsSummary; sourceTree = "<group>"; };
 		2AF547F21A1AC43900E78A5B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Gravity_Jam iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -536,6 +537,7 @@
 				2A518EF41A11D7C1009E6AE0 /* orangeTile.png */,
 				2A518EF51A11D7C1009E6AE0 /* redTile.png */,
 				2A518EF61A11D7C1009E6AE0 /* yellowTile.png */,
+				2AEFAE3B1A48968D00CED9D6 /* GraphicsSummary */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -597,7 +599,7 @@
 				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = MDDB52YB8L;
+						DevelopmentTeam = SZ757V7UE4;
 					};
 				};
 			};

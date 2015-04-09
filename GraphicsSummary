@@ -1,0 +1,85 @@
+Graphics Summary Document
+-------------------------
+
+
+Folders
+
+.../Gravity_Jam/Graphics/
+
+Contains working documents for graphics, not compiled into game
+
+.../Gravity_Jam/Resources/
+
+Contains graphics, fonts, and levels that are loaded at runtime written code, not platform specific.
+
+.../Gravity_Jam/proj.ios_mac/ios/
+
+Contains graphics that are specific to the iOS version of the game
+
+.../Gravity_Jam/proj.android/res/
+
+Contains graphics that are specific to Android
+
+<< and so on for the other "proj..." folders>>
+
+Specific documents
+------------------
+
+In .../Gravity_Jam/Graphics/:
+
+GravityJamIcon.svg
+
+Base icon file (1024x1024)
+
+MassConvert.sh
+
+Shell script to convert base icon file (GravityJamIcon.svg) into the range of needed resolutions and filenames
+
+GravityJam_Bricks_updated.svg
+
+This file contains the collected brick designs. They must be exported as pngs at 64x64 to be used in the game (placed in Resources folder)
+
+GravityJamSplash[].svg
+
+These files contain the splash screens for different iPhone aspect ratios
+
+levelComplete.svg
+
+This is the design of the pop-up screen that happens between levels.
+
+The buttons folder contains all of the scratch files for buttons in the game.
+
+In .../Gravity_Jam/proj.ios_mac/ios/:
+
+Files starting with "Default":
+
+This is the splash screen image in various sizes for different devices.
+
+Files starting with "icon":
+
+These are the various resolution icons
+
+Files with "iTunesArtwork":
+
+These are used in the Apple store and online through Apple
+
+In .../Gravity_Jam/Resources/:
+
+blueTile.png
+greenTile.png
+orangeTile.png
+redTile.png
+yellowTile.png
+
+These are 64x64 tiles that are loaded by each level. These are game tiles.
+
+In the Graphics folder:
+
+The tmx files here are the actual level designs, which are created by the program "Tiled".
+stopTile_v1.png is for the barrier tile in the game.
+The folder "Buttons" contains the button images for the menus in the game
+
+In the fonts folder:
+All the ttf files for the non-system fonts I use. So far I don't actually use dynamic text, so the unlicensed font Sofachrome should only be used pre-rendered if possible.
+
+
