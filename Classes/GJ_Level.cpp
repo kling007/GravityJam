@@ -511,9 +511,7 @@ bool Level::createPuzzleTileMove(Sprite * theTile, int direction)
             
             auto updateAction = CallFunc::create([&](){
                 // this triggers all updates needed for moving remaining tiles to collapse into deleted areas
-                // I don't know why I have to explicitely call it,
-                // scheduleOnce complains about scheduling the selector twice
-                // scheduleOnce(schedule_selector(Level::update), 0.0);
+
                 update(0.0);
             });
             
