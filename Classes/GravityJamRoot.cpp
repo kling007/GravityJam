@@ -35,22 +35,7 @@ bool GravityJamRoot::init()
     gj_level = 1;
     faulted = false;
     
-    // TO DO ---> get our resolution/scaling straight for different devices
-    
-    
-    // ---> create off switch - temporary off button for testing only
-//    auto closeItem = MenuItemImage::create("CloseNormal.png",
-//                                           "CloseSelected.png",
-//                                           CC_CALLBACK_1(GravityJamRoot::menuCloseCallback, this));
-//    
-//    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-//                                origin.y + closeItem->getContentSize().height/2));
-//    
-//    auto menu = Menu::create(closeItem, NULL);
-//    menu->setPosition(Vec2::ZERO);
-//    this->addChild(menu, 1);
-
-    
+    // TO DO ---> get our resolution/scaling straight for different devices   
 
     
     /*
