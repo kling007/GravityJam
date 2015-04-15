@@ -35,47 +35,28 @@ bool GravityJamRoot::init()
     gj_level = 1;
     faulted = false;
     
-    // ---> create off switch - temporary off button for testing only
-    auto closeItem = MenuItemImage::create("CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(GravityJamRoot::menuCloseCallback, this));
-    
-    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
-    
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
-
-    
     // TO DO ---> get our resolution/scaling straight for different devices
     
-//    if(!this->setupTouches())
-//    {
-//        CCLOG("Error setting up Touch listeners!");
-//        return false;
-//    }
+    
+    // ---> create off switch - temporary off button for testing only
+//    auto closeItem = MenuItemImage::create("CloseNormal.png",
+//                                           "CloseSelected.png",
+//                                           CC_CALLBACK_1(GravityJamRoot::menuCloseCallback, this));
+//    
+//    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
+//                                origin.y + closeItem->getContentSize().height/2));
+//    
+//    auto menu = Menu::create(closeItem, NULL);
+//    menu->setPosition(Vec2::ZERO);
+//    this->addChild(menu, 1);
+
+    
+
     
     /*
-     * Playing around for now...
-     * eventually init will create a menu scene and control will go there
+     * Set up the main menu scene and transfer control there.
+     *
      */
-        
-    // testing level and HUD creation
-
-//    theLevel.init();
-//    if(!this->initLevel(gj_level))
-//    {
-//        CCLOG("Error initializing levels.");
-//        return false;
-//    }
-    
-//    // HUD
-//    if(!this->initHUD())
-//    {
-//        CCLOG("Error initializing HUD.");
-//        return false;
-//    }
     
     Director::getInstance()->pushScene(MainMenu::createScene());
     this->scheduleUpdate();
