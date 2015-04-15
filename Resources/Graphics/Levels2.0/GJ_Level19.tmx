@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="12" height="12" tilewidth="64" tileheight="64" backgroundcolor="#ebe8e6">
+ <properties>
+  <property name="Stop" value="True"/>
+ </properties>
+ <tileset firstgid="1" name="Tiles_V1" tilewidth="64" tileheight="64">
+  <image source="../tiles_v1.png" width="128" height="320"/>
+ </tileset>
+ <tileset firstgid="11" name="metaTiles_v1" tilewidth="64" tileheight="64">
+  <image source="../metaTiles_v1.png" width="320" height="64"/>
+  <tile id="1">
+   <properties>
+    <property name="Free" value="True"/>
+    <property name="Stop" value="False"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="Stop" value="True"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="16" name="Tiles_V2" tilewidth="64" tileheight="64">
+  <image source="../tiles_v2.png" width="321" height="192"/>
+ </tileset>
+ <objectgroup color="#ebe8e6" name="Objects">
+  <object name="BlueSpawn" x="320" y="320" width="64" height="64"/>
+  <object name="BlueSpawn" x="448" y="256" width="64" height="64"/>
+  <object name="RedSpawn" x="448" y="320" width="64" height="64"/>
+  <object name="RedSpawn" x="384" y="384" width="64" height="64"/>
+  <object name="YellowSpawn" x="256" y="256" width="64" height="64"/>
+  <object name="YellowSpawn" x="384" y="256" width="64" height="64"/>
+ </objectgroup>
+ <layer name="Tile Layer 1" width="12" height="12">
+  <data encoding="base64" compression="zlib">
+   eJwTZWBgEB1GGB0Qq16UBPXo+qjpnqGGAReICqs=
+  </data>
+ </layer>
+ <layer name="Meta" width="12" height="12">
+  <properties>
+   <property name="Stop" value="True"/>
+  </properties>
+  <data encoding="base64" compression="zlib">
+   eJzjZ2Bg4B9GmAcN41Mrh6aOkHp+NLXEqifWPUMRAwB1DwhW
+  </data>
+ </layer>
+</map>
