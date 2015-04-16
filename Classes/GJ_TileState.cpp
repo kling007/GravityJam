@@ -220,10 +220,10 @@ void MapState::moveTileState(Vec2 fromLoc, Vec2 toLoc)
 
 }
 
-void MapState::copyTileState(Vec2 fromLoc, Vec2 toLoc)
-{
-    // I'll get to this when/if I need it
-}
+//void MapState::copyTileState(Vec2 fromLoc, Vec2 toLoc)
+//{
+//    // I'll get to this when/if I need it
+//}
 
 bool MapState::checkTileToDeleteMark(Vec2 loc)
 {

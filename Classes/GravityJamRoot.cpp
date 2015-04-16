@@ -6,9 +6,10 @@ USING_NS_CC;
 Scene* GravityJamRoot::createScene()
 {
     // 'scene', 'layer' are autorelease objects
-    auto scene = Scene::create();
+    Scene * scene = Scene::create();
     auto layer = GravityJamRoot::create();
-
+    scene->retain();
+    layer->retain();
     scene->addChild(layer);
 
     // return the scene
@@ -17,7 +18,7 @@ Scene* GravityJamRoot::createScene()
 
 bool GravityJamRoot::init()
 {
-    // ---> super init()
+    // super init()
     if ( !Layer::init() )
     {
         return false;
@@ -31,49 +32,19 @@ bool GravityJamRoot::init()
     Color3B glClear = GJ_Settings::gj_backgroundUIColor;
     glClearColor(glClear.r,glClear.g,glClear.b, 0);
     
-    // ---> create off switch - temporary off button for testing only
-    auto closeItem = MenuItemImage::create("CloseNormal.png",
-                                           "CloseSelected.png",
-                                           CC_CALLBACK_1(GravityJamRoot::menuCloseCallback, this));
+    gj_level = 1;
+    faulted = false;
     
-    closeItem->setPosition(Vec2(origin.x + visibleSize.width - closeItem->getContentSize().width/2 ,
-                                origin.y + closeItem->getContentSize().height/2));
-    
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+    // TO DO ---> get our resolution/scaling straight for different devices   
 
-    
-    // TO DO ---> get our resolution/scaling straight for different devices
-    
-    if(!this->setupTouches())
-    {
-        CCLOG("Error setting up Touch listeners!");
-        return false;
-    }
     
     /*
-     * Playing around for now...
-     * eventually init will create a menu scene and control will go there
+     * Set up the main menu scene and transfer control there.
+     *
      */
-        
-    // testing level and HUD creation
-
-    theLevel.init();
-    if(!this->initLevel(1))
-    {
-        CCLOG("Error initializing levels.");
-        return false;
-    }
     
-    // HUD
-    if(!this->initHUD())
-    {
-        CCLOG("Error initializing HUD.");
-        return false;
-    }
-    
-    this-> scheduleUpdate();
+    Director::getInstance()->pushScene(MainMenu::createScene());
+    this->scheduleUpdate();
     
     return true;
 }
@@ -92,29 +63,54 @@ bool GravityJamRoot::initHUD()
 bool GravityJamRoot::initLevel(int levelNum)
 {
     // Is there anything we need to do before loading the level? The Level class should handle most of it.
-    
-    theLevel.loadLevel(levelNum, this);
-    
-    return true;
+//    if(theLevel.loadLevel(levelNum, this))
+    if(theLevel.loadLevel(levelNum))
+    {
+        return true;
+    }
+    printf("Error opening tmx file.\n");
+    return false;
 }
 
-bool GravityJamRoot::closeLevel()
+void GravityJamRoot::closeLevel(void)
 {
     // To do: what needs to happen between levels?
     // probably unload level data, update event listeners, etc.
-  
-    return true;
+    
+    theLevel.unloadLevel();
 }
 
+bool GravityJamRoot::nextLevel(void)
+{
+    gj_level++;
+    
+    // we should check the level against a max, but I don't know how to determine that yet.
+    // for now, we'll let that fail happen in Level::initLevel()
+    return initLevel(gj_level);
+}
+
+void GravityJamRoot::endLevel(float dt)
+{
+    // we will need all of the end of level graphics here
+    // for now, just unload the level and load the next one
+    closeLevel();
+    if(!nextLevel())
+    {
+        printf("Error opening level %i", gj_level);
+        faulted = true;
+    }
+}
 
 bool GravityJamRoot::setupTouches()
 {
     // set up touch listening - one at a time
     touchListener = EventListenerTouchOneByOne::create();
     touchListener->setSwallowTouches(true);
+    touchListener->retain();
     
     touchListener->onTouchBegan = [this](Touch* touch, Event* event)
     {
+        
         // get the node out of the event, cast it to Node
         auto target = static_cast<Node*>(event->getCurrentTarget());
         
@@ -139,8 +135,12 @@ bool GravityJamRoot::setupTouches()
     
     
     //Process the touch end event
-    touchListener->onTouchEnded = [this](Touch* touch, Event* event){
-        
+    touchListener->onTouchEnded = [&](Touch* touch, Event* event){
+        // reject touch ended if we are in a faulted state so we don't crash
+        // alternatively, we should disable the listener and prompt the user to return to main menu, etc.
+        if (faulted) {
+            return;
+        }
         auto target = static_cast<Node*>(event->getCurrentTarget());
         Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());
         this->touchEnd.set(locationInNode);
@@ -197,7 +197,12 @@ int GravityJamRoot::getTouchDirection()
 
 void GravityJamRoot::update(float dt)
 {
-    theLevel.scheduleUpdate();
+    if(theLevel.isCurrentLevelComplete() && !faulted)
+    {
+        // run end of level function]
+        printf("Level %i complete. Preparing new level...", gj_level);
+        scheduleOnce(schedule_selector(GravityJamRoot::endLevel), 0.0);
+    }
 }
 
 void GravityJamRoot::menuCloseCallback(Ref* pSender)

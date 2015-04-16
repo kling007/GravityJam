@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:osb="http://www.openswatchbook.org/uri/2009/osb"
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1024px"
+   height="768px"
+   id="svg4534"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="GravityJam_Bricks_updated.svg">
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="2.5895042"
+     inkscape:cx="171.05456"
+     inkscape:cy="626.16662"
+     inkscape:current-layer="layer1"
+     inkscape:document-units="px"
+     showgrid="false"
+     inkscape:window-width="1444"
+     inkscape:window-height="1165"
+     inkscape:window-x="908"
+     inkscape:window-y="49"
+     inkscape:window-maximized="0" />
+  <defs
+     id="defs4536">
+    <linearGradient
+       id="linearGradient12375"
+       osb:paint="solid">
+      <stop
+         style="stop-color:#f3df0b;stop-opacity:1;"
+         offset="0"
+         id="stop12377" />
+    </linearGradient>
+    <marker
+       style="overflow:visible;"
+       id="Arrow2Send"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Send">
+      <path
+         transform="scale(0.3) rotate(180) translate(-2.3,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         id="path8174" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow2Mend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Mend">
+      <path
+         transform="scale(0.6) rotate(180) translate(0,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         id="path8168" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Send"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Send">
+      <path
+         transform="scale(0.2) rotate(180) translate(6,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path8156" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Lend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="fill-rule:evenodd;stroke:#000000;stroke-width:1.0pt;"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path8144" />
+    </marker>
+    <marker
+       style="overflow:visible;"
+       id="Arrow2Lend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow2Lend">
+      <path
+         transform="scale(1.1) rotate(180) translate(1,0)"
+         d="M 8.7185878,4.0337352 L -2.2072895,0.016013256 L 8.7185884,-4.0017078 C 6.9730900,-1.6296469 6.9831476,1.6157441 8.7185878,4.0337352 z "
+         style="fill-rule:evenodd;stroke-width:0.62500000;stroke-linejoin:round;"
+         id="path8162" />
+    </marker>
+    <linearGradient
+       osb:paint="solid"
+       id="linearGradient5060">
+      <stop
+         id="stop5062"
+         offset="0"
+         style="stop-color:#52e81d;stop-opacity:1;" />
+    </linearGradient>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Send-8"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Send">
+      <path
+         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round"
+         id="path8174-1"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Send-8D"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Send-8D">
+      <path
+         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="stroke-linejoin:round;stroke:#579de3;stroke-width:0.625;fill:#579de3;fill-rule:evenodd"
+         id="path10712"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Send-86"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Send-86">
+      <path
+         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="stroke-linejoin:round;stroke:#579de3;stroke-width:0.625;fill:#579de3;fill-rule:evenodd"
+         id="path11494"
+         inkscape:connector-curvature="0" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow2Send-86d"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow2Send-86d">
+      <path
+         transform="matrix(-0.3,0,0,-0.3,0.69,0)"
+         d="M 8.7185878,4.0337352 -2.2072895,0.01601326 8.7185884,-4.0017078 c -1.7454984,2.3720609 -1.7354408,5.6174519 -6e-7,8.035443 z"
+         style="stroke-linejoin:round;fill-rule:evenodd;stroke:#196cff;stroke-width:0.625;fill:#196cff"
+         id="path11992"
+         inkscape:connector-curvature="0" />
+    </marker>
+  </defs>
+  <metadata
+     id="metadata4539">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     inkscape:label="Layer 1"
+     id="layer1">
+    <text
+       sodipodi:linespacing="125%"
+       id="text5217"
+       y="49.417698"
+       x="21.97965"
+       style="font-size:40px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
+       xml:space="preserve"><tspan
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr;text-anchor:start;font-family:Sofachrome;-inkscape-font-specification:Sofachrome"
+         y="49.417698"
+         x="21.97965"
+         id="tspan5219"
+         sodipodi:role="line">GravityJam</tspan></text>
+    <text
+       sodipodi:linespacing="125%"
+       id="text4636-4-2"
+       y="76.989471"
+       x="32.81263"
+       style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;font-family:'8BIT WONDER';-inkscape-font-specification:'8BIT WONDER'"
+       xml:space="preserve"><tspan
+         style="font-size:24px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;font-family:Sofachrome;-inkscape-font-specification:Sofachrome"
+         y="76.989471"
+         x="32.81263"
+         id="tspan4638-6-4"
+         sodipodi:role="line">Tile Sheet</tspan></text>
+    <rect
+       rx="2.58483"
+       ry="2.58483"
+       y="694.45532"
+       x="520.92224"
+       height="32.233292"
+       width="32.233292"
+       id="rect2985-7"
+       style="fill:#52e81d;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1.08000004;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="2.58483"
+       ry="2.58483"
+       y="694.35303"
+       x="557.57288"
+       height="32.233292"
+       width="32.233292"
+       id="rect2985-2-4"
+       style="fill:#196cff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1.08000004;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="2.58483"
+       ry="2.58483"
+       y="694.7746"
+       x="594.43353"
+       height="31.594843"
+       width="31.594843"
+       id="rect2985-6-7"
+       style="fill:#f32400;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="2.58483"
+       ry="2.58483"
+       y="694.6723"
+       x="704.3855"
+       height="31.594843"
+       width="31.594843"
+       id="rect2985-2-6-7"
+       style="fill:#f3df0b;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="2.58483"
+       ry="2.58483"
+       y="694.6723"
+       x="667.73486"
+       height="31.594843"
+       width="31.594843"
+       id="rect2985-2-0-8"
+       style="fill:#c17dff;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="2.58483"
+       ry="2.58483"
+       y="694.6723"
+       x="631.08423"
+       height="31.594843"
+       width="31.594843"
+       id="rect2985-2-5-8"
+       style="fill:#ff9817;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1.5;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="4.8950982"
+       ry="4.8950982"
+       y="84.175385"
+       x="34.064495"
+       height="61.042747"
+       width="61.042747"
+       id="rect2985-7-7"
+       style="fill:#fc6042;fill-opacity:1;fill-rule:nonzero;stroke:#e7e7de;stroke-width:2.95725155;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="4.8950982"
+       ry="4.8950982"
+       y="84.175385"
+       x="98.064499"
+       height="61.042747"
+       width="61.042747"
+       id="rect2985-2-4-4"
+       style="fill:#2c82c9;fill-opacity:1;fill-rule:nonzero;stroke:#e7e7de;stroke-width:2.95725155;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="4.9908977"
+       ry="4.9908981"
+       y="84.194435"
+       x="162.08354"
+       height="61.004646"
+       width="61.004646"
+       id="rect2985-6-7-3"
+       style="fill:#2cc990;fill-opacity:1;fill-rule:nonzero;stroke:#e7e7de;stroke-width:2.99535489;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="4.9908977"
+       ry="4.9908981"
+       y="84.194435"
+       x="290.08356"
+       height="61.004646"
+       width="61.004646"
+       id="rect2985-2-0-8-4"
+       style="fill:#fcb941;fill-opacity:1;fill-rule:nonzero;stroke:#ebe8e6;stroke-width:2.99535489;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="4.9908977"
+       ry="4.9908981"
+       y="84.194435"
+       x="226.08354"
+       height="61.004646"
+       width="61.004646"
+       id="rect2985-2-5-8-8"
+       style="fill:#eee657;fill-opacity:1;fill-rule:nonzero;stroke:#e7e7de;stroke-width:2.99535489;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0" />
+    <rect
+       rx="0"
+       ry="0"
+       y="146.69676"
+       x="160.58588"
+       height="64"
+       width="64"
+       id="rect2985-2-6-7-7-8"
+       style="fill:#008891;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/Graphics/tiles_v2.png"
+       inkscape:export-xdpi="500"
+       inkscape:export-ydpi="500" />
+    <rect
+       rx="0"
+       ry="0"
+       y="146.69676"
+       x="96.585876"
+       height="64"
+       width="64"
+       id="rect2985-2-6-7-7-4"
+       style="fill:#cdcba6;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/Graphics/tiles_v2.png"
+       inkscape:export-xdpi="500"
+       inkscape:export-ydpi="500" />
+    <rect
+       rx="0"
+       ry="0"
+       y="146.69676"
+       x="224.58588"
+       height="64"
+       width="64"
+       id="rect2985-2-6-7-7-83"
+       style="fill:#00587a;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/Graphics/tiles_v2.png"
+       inkscape:export-xdpi="500"
+       inkscape:export-ydpi="500" />
+    <rect
+       rx="0"
+       ry="0"
+       y="146.69676"
+       x="288.58588"
+       height="64"
+       width="64"
+       id="rect2985-2-6-7-7-41"
+       style="fill:#0f3057;fill-opacity:1;fill-rule:nonzero;stroke:none"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/Graphics/tiles_v2.png"
+       inkscape:export-xdpi="500"
+       inkscape:export-ydpi="500" />
+    <rect
+       rx="4.8950982"
+       ry="4.8950982"
+       y="148.17538"
+       x="34.064503"
+       height="61.042747"
+       width="61.042747"
+       id="rect2985-7-7-9"
+       style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:#e7e7de;stroke-width:2.957;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;opacity:1"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/Graphics/stopTile_v1.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <rect
+       rx="0"
+       ry="0"
+       y="210.05322"
+       x="160.5275"
+       height="64"
+       width="64"
+       id="rect2985-2-6-7-7-8-9"
+       style="fill:#008891;fill-opacity:1;fill-rule:nonzero;stroke:none;opacity:0.5"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/Graphics/metaTiles_v1.png"
+       inkscape:export-xdpi="89.986954"
+       inkscape:export-ydpi="89.986954" />
+    <rect
+       rx="0"
+       ry="0"
+       y="210.05322"
+       x="96.527496"
+       height="64"
+       width="64"
+       id="rect2985-2-6-7-7-4-0"
+       style="fill:#cdcba6;fill-opacity:1;fill-rule:nonzero;stroke:none;opacity:0.5"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/Graphics/metaTiles_v1.png"
+       inkscape:export-xdpi="89.986954"
+       inkscape:export-ydpi="89.986954" />
+    <rect
+       rx="0"
+       ry="0"
+       y="210.05322"
+       x="224.5275"
+       height="64"
+       width="64"
+       id="rect2985-2-6-7-7-83-4"
+       style="fill:#00587a;fill-opacity:1;fill-rule:nonzero;stroke:none;opacity:0.5"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/Graphics/metaTiles_v1.png"
+       inkscape:export-xdpi="89.986954"
+       inkscape:export-ydpi="89.986954" />
+    <rect
+       rx="0"
+       ry="0"
+       y="210.05322"
+       x="288.5275"
+       height="64"
+       width="64"
+       id="rect2985-2-6-7-7-41-0"
+       style="fill:#0f3057;fill-opacity:1;fill-rule:nonzero;stroke:none;opacity:0.5"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/Graphics/metaTiles_v1.png"
+       inkscape:export-xdpi="89.986954"
+       inkscape:export-ydpi="89.986954" />
+    <rect
+       rx="4.8950982"
+       ry="4.8950982"
+       y="211.53185"
+       x="34.006123"
+       height="61.042747"
+       width="61.042747"
+       id="rect2985-7-7-9-0"
+       style="fill:#b3b3b3;fill-opacity:1;fill-rule:nonzero;stroke:#e7e7de;stroke-width:2.95725155000000006;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;opacity:0.5"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/Graphics/metaTiles_v1.png"
+       inkscape:export-xdpi="89.986954"
+       inkscape:export-ydpi="89.986954" />
+  </g>
+</svg>

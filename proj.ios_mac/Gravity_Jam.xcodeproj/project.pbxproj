@@ -25,6 +25,10 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
+		2A190A451A21A7610019AE43 /* GJ_MainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A190A431A21A7610019AE43 /* GJ_MainMenu.cpp */; };
+		2A190A461A21A7610019AE43 /* GJ_MainMenu.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A190A431A21A7610019AE43 /* GJ_MainMenu.cpp */; };
+		2A190A4B1A23F05E0019AE43 /* GJ_Victory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A190A491A23F05E0019AE43 /* GJ_Victory.cpp */; };
+		2A190A4C1A23F05E0019AE43 /* GJ_Victory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A190A491A23F05E0019AE43 /* GJ_Victory.cpp */; };
 		2A2CE02F19E7BB97003EEB14 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE02E19E7BB97003EEB14 /* Graphics */; };
 		2A2CE03419EB3A4B003EEB14 /* GJ_HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE03019EB3A4B003EEB14 /* GJ_HUD.cpp */; };
 		2A2CE03519EB3A4B003EEB14 /* GJ_HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE03019EB3A4B003EEB14 /* GJ_HUD.cpp */; };
@@ -38,6 +42,8 @@
 		2A2CE04619EC8706003EEB14 /* GJ_Settings.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE04419EC8706003EEB14 /* GJ_Settings.cpp */; };
 		2A2CE04819ED03D4003EEB14 /* blueTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE04719ED03D4003EEB14 /* blueTile.png */; };
 		2A2CE04919ED03D4003EEB14 /* blueTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE04719ED03D4003EEB14 /* blueTile.png */; };
+		2A3971201ADD104200BCD820 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A39711B1ADD104200BCD820 /* sqlite3.c */; };
+		2A3971211ADD104200BCD820 /* sqlite3.c in Sources */ = {isa = PBXBuildFile; fileRef = 2A39711B1ADD104200BCD820 /* sqlite3.c */; };
 		2A40ABB819F62835007E6402 /* GJ_TileState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A40ABB619F62835007E6402 /* GJ_TileState.cpp */; };
 		2A40ABB919F62835007E6402 /* GJ_TileState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A40ABB619F62835007E6402 /* GJ_TileState.cpp */; };
 		2A518EF71A11D7C1009E6AE0 /* greenTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF31A11D7C1009E6AE0 /* greenTile.png */; };
@@ -50,6 +56,7 @@
 		2A518EFE1A11D7C1009E6AE0 /* yellowTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A518EF61A11D7C1009E6AE0 /* yellowTile.png */; };
 		2A6C643119F0E5FA000E50B6 /* GJ_Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */; };
 		2A6C643219F0E5FA000E50B6 /* GJ_Level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */; };
+		2AF547F31A1AC43900E78A5B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2AF547F21A1AC43900E78A5B /* Images.xcassets */; };
 		503AE0F817EB97AB00D1A890 /* Icon.icns in Resources */ = {isa = PBXBuildFile; fileRef = 503AE0F617EB97AB00D1A890 /* Icon.icns */; };
 		503AE10017EB989F00D1A890 /* AppController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FB17EB989F00D1A890 /* AppController.mm */; };
 		503AE10117EB989F00D1A890 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 503AE0FC17EB989F00D1A890 /* main.m */; };
@@ -253,6 +260,10 @@
 		1D6058910D05DD3D006BFB54 /* Gravity_Jam iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gravity_Jam iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2A190A431A21A7610019AE43 /* GJ_MainMenu.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_MainMenu.cpp; path = ../Classes/GJ_MainMenu.cpp; sourceTree = "<group>"; };
+		2A190A441A21A7610019AE43 /* GJ_MainMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_MainMenu.h; path = ../Classes/GJ_MainMenu.h; sourceTree = "<group>"; };
+		2A190A491A23F05E0019AE43 /* GJ_Victory.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Victory.cpp; path = ../Classes/GJ_Victory.cpp; sourceTree = "<group>"; };
+		2A190A4A1A23F05E0019AE43 /* GJ_Victory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_Victory.h; path = ../Classes/GJ_Victory.h; sourceTree = "<group>"; };
 		2A2CE02E19E7BB97003EEB14 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
 		2A2CE03019EB3A4B003EEB14 /* GJ_HUD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_HUD.cpp; path = ../Classes/GJ_HUD.cpp; sourceTree = "<group>"; };
 		2A2CE03119EB3A4B003EEB14 /* GJ_HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_HUD.h; path = ../Classes/GJ_HUD.h; sourceTree = "<group>"; };
@@ -264,6 +275,9 @@
 		2A2CE04019EC7169003EEB14 /* GJ_Settings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GJ_Settings.h; path = ../Classes/GJ_Settings.h; sourceTree = "<group>"; };
 		2A2CE04419EC8706003EEB14 /* GJ_Settings.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Settings.cpp; path = ../Classes/GJ_Settings.cpp; sourceTree = "<group>"; };
 		2A2CE04719ED03D4003EEB14 /* blueTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueTile.png; sourceTree = "<group>"; };
+		2A39711B1ADD104200BCD820 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sqlite3.c; sourceTree = "<group>"; };
+		2A39711C1ADD104200BCD820 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		2A39711D1ADD104200BCD820 /* sqlite3ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3ext.h; sourceTree = "<group>"; };
 		2A40ABB619F62835007E6402 /* GJ_TileState.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_TileState.cpp; path = ../Classes/GJ_TileState.cpp; sourceTree = "<group>"; };
 		2A40ABB719F62835007E6402 /* GJ_TileState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_TileState.h; path = ../Classes/GJ_TileState.h; sourceTree = "<group>"; };
 		2A518EF31A11D7C1009E6AE0 /* greenTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = greenTile.png; sourceTree = "<group>"; };
@@ -272,6 +286,8 @@
 		2A518EF61A11D7C1009E6AE0 /* yellowTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = yellowTile.png; sourceTree = "<group>"; };
 		2A6C642F19F0E5FA000E50B6 /* GJ_Level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Level.cpp; path = ../Classes/GJ_Level.cpp; sourceTree = "<group>"; };
 		2A6C643019F0E5FA000E50B6 /* GJ_Level.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_Level.h; path = ../Classes/GJ_Level.h; sourceTree = "<group>"; };
+		2AEFAE3B1A48968D00CED9D6 /* GraphicsSummary */ = {isa = PBXFileReference; lastKnownFileType = text; name = GraphicsSummary; path = ../GraphicsSummary; sourceTree = "<group>"; };
+		2AF547F21A1AC43900E78A5B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "Gravity_Jam iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
 		503AE0F617EB97AB00D1A890 /* Icon.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Icon.icns; sourceTree = "<group>"; };
 		503AE0F717EB97AB00D1A890 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		503AE0FA17EB989F00D1A890 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppController.h; path = ios/AppController.h; sourceTree = SOURCE_ROOT; };
@@ -396,6 +412,10 @@
 				2A6C643019F0E5FA000E50B6 /* GJ_Level.h */,
 				2A40ABB619F62835007E6402 /* GJ_TileState.cpp */,
 				2A40ABB719F62835007E6402 /* GJ_TileState.h */,
+				2A190A431A21A7610019AE43 /* GJ_MainMenu.cpp */,
+				2A190A441A21A7610019AE43 /* GJ_MainMenu.h */,
+				2A190A491A23F05E0019AE43 /* GJ_Victory.cpp */,
+				2A190A4A1A23F05E0019AE43 /* GJ_Victory.h */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -432,6 +452,7 @@
 			children = (
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
 				15AA9C4015B7EC450033D6C2 /* Classes */,
+				2A3971181ADD101600BCD820 /* External */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				080E96DDFE201D6D7F000001 /* ios */,
 				503AE10617EB990700D1A890 /* mac */,
@@ -461,6 +482,24 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		2A3971181ADD101600BCD820 /* External */ = {
+			isa = PBXGroup;
+			children = (
+				2A3971191ADD102500BCD820 /* sqlite3 */,
+			);
+			name = External;
+			sourceTree = "<group>";
+		};
+		2A3971191ADD102500BCD820 /* sqlite3 */ = {
+			isa = PBXGroup;
+			children = (
+				2A39711B1ADD104200BCD820 /* sqlite3.c */,
+				2A39711C1ADD104200BCD820 /* sqlite3.h */,
+				2A39711D1ADD104200BCD820 /* sqlite3ext.h */,
+			);
+			name = sqlite3;
 			sourceTree = "<group>";
 		};
 		503AE0F517EB97AB00D1A890 /* Icons */ = {
@@ -511,6 +550,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2AF547F21A1AC43900E78A5B /* Images.xcassets */,
 				2A2CE03C19EB8B31003EEB14 /* fonts */,
 				2A2CE02E19E7BB97003EEB14 /* Graphics */,
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
@@ -521,6 +561,7 @@
 				2A518EF41A11D7C1009E6AE0 /* orangeTile.png */,
 				2A518EF51A11D7C1009E6AE0 /* redTile.png */,
 				2A518EF61A11D7C1009E6AE0 /* yellowTile.png */,
+				2AEFAE3B1A48968D00CED9D6 /* GraphicsSummary */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -582,7 +623,7 @@
 				LastUpgradeCheck = 0600;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = MDDB52YB8L;
+						DevelopmentTeam = SZ757V7UE4;
 					};
 				};
 			};
@@ -699,6 +740,7 @@
 				2A518EF71A11D7C1009E6AE0 /* greenTile.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
 				1AFAF8BC16D35E4900DB1158 /* CloseNormal.png in Resources */,
+				2AF547F31A1AC43900E78A5B /* Images.xcassets in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
 				5087E78517EB970100C73F5D /* Icon-72.png in Resources */,
@@ -746,6 +788,8 @@
 				2A2CE03419EB3A4B003EEB14 /* GJ_HUD.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
+				2A190A4B1A23F05E0019AE43 /* GJ_Victory.cpp in Sources */,
+				2A3971201ADD104200BCD820 /* sqlite3.c in Sources */,
 				2A2CE03619EB3A4B003EEB14 /* GJ_Score.cpp in Sources */,
 				2A2CE03A19EB55C8003EEB14 /* VisibleRect.cpp in Sources */,
 				2A6C643119F0E5FA000E50B6 /* GJ_Level.cpp in Sources */,
@@ -753,6 +797,7 @@
 				2A40ABB819F62835007E6402 /* GJ_TileState.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				2A2CE04519EC8706003EEB14 /* GJ_Settings.cpp in Sources */,
+				2A190A451A21A7610019AE43 /* GJ_MainMenu.cpp in Sources */,
 				1AFAF8B816D35DE700DB1158 /* GravityJamRoot.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -764,9 +809,12 @@
 				2A2CE03519EB3A4B003EEB14 /* GJ_HUD.cpp in Sources */,
 				5087E75717EB910900C73F5D /* AppDelegate.cpp in Sources */,
 				2A40ABB919F62835007E6402 /* GJ_TileState.cpp in Sources */,
+				2A190A4C1A23F05E0019AE43 /* GJ_Victory.cpp in Sources */,
 				2A2CE03B19EB55C8003EEB14 /* VisibleRect.cpp in Sources */,
+				2A190A461A21A7610019AE43 /* GJ_MainMenu.cpp in Sources */,
 				5087E75817EB910900C73F5D /* GravityJamRoot.cpp in Sources */,
 				503AE10517EB98FF00D1A890 /* main.cpp in Sources */,
+				2A3971211ADD104200BCD820 /* sqlite3.c in Sources */,
 				2A6C643219F0E5FA000E50B6 /* GJ_Level.cpp in Sources */,
 				2A2CE04619EC8706003EEB14 /* GJ_Settings.cpp in Sources */,
 				2A2CE03719EB3A4B003EEB14 /* GJ_Score.cpp in Sources */,
@@ -833,6 +881,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -852,7 +902,7 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -864,6 +914,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
@@ -881,7 +933,7 @@
 					"$(SRCROOT)/../cocos2d/cocos/platform/ios/Simulation",
 				);
 				INFOPLIST_FILE = ios/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

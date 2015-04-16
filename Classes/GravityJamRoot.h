@@ -6,6 +6,7 @@
 #include "GJ_HUD.h"
 #include "VisibleRect.h"
 #include "GJ_Level.h"
+#include "GJ_MainMenu.h"
 
 USING_NS_CC;
 
@@ -13,7 +14,6 @@ class GravityJamRoot : public cocos2d::Layer {
     
 public:
     
-    // the Scene object that this class manages
     static cocos2d::Scene* createScene();
     
     virtual bool init();
@@ -32,7 +32,10 @@ public:
     // level maps
     Level theLevel;
     bool initLevel(int levelNum);
-    bool closeLevel();
+    void closeLevel(void);
+    bool nextLevel(void);
+    void endLevel(float dt);
+    
     void update(float dt);
     
     // off switch callback method (func)
@@ -55,6 +58,7 @@ public:
     Score theScore;
     int gj_level, gj_timeInSeconds;
     unsigned short gj_hours, gj_minutes, gj_seconds;
+    bool faulted;
     
     // implement the "static create()" method manually
     CREATE_FUNC(GravityJamRoot);
@@ -62,6 +66,9 @@ public:
     // apparently cocos2d-x example code doesn't "do" ctor/dtor methods... interesting
     
 private:
+    
+    // Scenes
+    MainMenu theMainMenu;
     
     // tileMap related
     cocos2d::TMXTiledMap * tileMap;

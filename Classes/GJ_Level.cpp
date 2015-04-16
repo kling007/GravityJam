@@ -7,9 +7,26 @@
 //
 
 #include "GJ_Level.h"
+#include <string>
+#include <iostream>
+
+using string = std::basic_string<char>;
+
+// initialization
+Scene* Level::createScene()
+{
+    // 'scene', 'layer' are autorelease objects
+    Scene * scene = Scene::create();
+    auto layer = Level::create();
+    scene->retain();
+    layer->retain();
+    scene->addChild(layer);
+    
+    // return the scene
+    return scene;
+}
 
 
-// standard methods
 bool Level::init()
 {
     // init the super
@@ -18,17 +35,127 @@ bool Level::init()
         return false;
     }
     
-    // not much to initialize here
+    parentVisibleSize = Director::getInstance()->getVisibleSize();
+    parentOrigin = Director::getInstance()->getVisibleOrigin();
     
-    curLevel = 0;
+    // setup touch handling
+    if(!setupTouches())
+    {
+        printf("Error setting up touch!\n");
+    }
+    
+    // this is where we should load any persistent data for a player
+    // particularly the score and level number
+    
+    curLevel = 1;
     curDirection = 0;
     posX = 0.0f;
     posY = 0.0f;
     tm_scale = 0.0f;
-    //this-> scheduleUpdate();
+    levelComplete = false;
+    movesQueued = 0;
+    
+    loadLevel(curLevel);
     
     return true;
 }
+
+// Touch handling
+
+bool Level::setupTouches()
+{
+    // set up touch listening - one at a time
+    touchListener = EventListenerTouchOneByOne::create();
+    touchListener->setSwallowTouches(true);
+    touchListener->retain();
+    
+    touchListener->onTouchBegan = [this](Touch* touch, Event* event)
+    {
+        
+        // get the node out of the event, cast it to Node
+        auto target = static_cast<Node*>(event->getCurrentTarget());
+        
+        //Get the position of the current point relative to node space of this
+        Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());
+        Size s = target->getContentSize();
+        Rect rect = Rect(0, 0, s.width, s.height);
+        
+        //Check the click area
+        if (rect.containsPoint(locationInNode))
+        {
+            // set the touch starting point
+            this->touchBegin.set(locationInNode);
+            return true;
+        }
+        return false;
+    };
+    
+    touchListener->onTouchMoved = [](Touch* touch, Event* event){
+        // Do nothing. perhaps modify a compass to show swipe direction?
+    };
+    
+    
+    //Process the touch end event
+    touchListener->onTouchEnded = [&](Touch* touch, Event* event){
+        // reject touch ended if we are in a faulted state so we don't crash
+        // alternatively, we should disable the listener and prompt the user to return to main menu, etc.
+//        if (faulted) {
+//            return;
+//        }
+        auto target = static_cast<Node*>(event->getCurrentTarget());
+        Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());
+        this->touchEnd.set(locationInNode);
+        
+        //
+        int dir = this->getTouchDirection();
+        CCLOG("Direction detected: %i \n", dir);
+        
+        moveTiles(dir);
+        
+        // check for end of level condition, additional moves
+        endOfMoveChecks(dir);
+        
+    };
+    
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(touchListener, this);
+    
+    return true;
+}
+
+int Level::getTouchDirection()
+{
+    // **** need to add a policy for extra short gestures?
+    
+    Vec2 touchVector = Vec2(touchBegin, touchEnd);
+    float swipeX = fabsf(touchEnd.x - touchBegin.x);
+    float swipeY = fabsf(touchEnd.y - touchBegin.y);
+    
+    
+    if(swipeX>swipeY) /* swipe left/right */
+    {
+        if (touchEnd.x>touchBegin.x) {
+            // right swipe
+            return RIGHT;
+        } else {
+            // left swipe
+            return LEFT;
+        }
+        
+    } else { /* swipe up/down */
+        
+        if (touchEnd.y>touchBegin.y) {
+            // up swipe
+            return UP;
+        } else {
+            // down swipe
+            return DOWN;
+        }
+    }
+    
+    // default to 0==NO direction
+    return NO_DIRECTION;
+}
+
 
 
 bool Level::createPuzzleTiles()
@@ -99,6 +226,7 @@ bool Level::createPassiveTiles()
         };
     };
     
+    Value * tileVals;
     ValueMap tileProperties;
     int theGID;
     
@@ -111,7 +239,16 @@ bool Level::createPassiveTiles()
         {
             Vec2 testLoc = Vec2(i, j);
             theGID = metaLayer->getTileGIDAt(testLoc);
-            tileProperties = (tileMap->getPropertiesForGID(theGID)).asValueMap();
+            
+            if(tileMap->getPropertiesForGID(theGID, &tileVals))
+            {
+                tileProperties=tileVals->asValueMap();
+            }
+            else
+            {
+                // eat shit here.
+            }
+            
             CCLOG("metaLayer[%i][%i]", i,j);
             CCLOG("GID: %i\n", theGID);
             if (theGID != 0) {
@@ -129,32 +266,57 @@ bool Level::createPassiveTiles()
 }
 
 // Top-level level management
-bool Level::loadLevel(int levelNum, Layer * activeLayer)
+bool Level::loadLevel(int levelNum)
 {
-    parentVisibleSize = Director::getInstance()->getVisibleSize();
-    parentOrigin = Director::getInstance()->getVisibleOrigin();
-   
+
     // How do we check the map to see if we need to clear it, or will this only be called on a fresh level?
     // *******************
+    
+    // create the filename
+    string filePrefix = "Graphics/Levels2.0/GJ_Level";
+    string fileSuffix = ".tmx";
+    string levelString = std::to_string(levelNum);
+    string levelFileName = filePrefix+levelString+fileSuffix;
+    
+    std::cout<<levelFileName<<"\n";
+    
     
     // place the tilemap
     // need to match the incoming levelNumber with the .tmx filename
     
     theMap = new MapState();
-    tileMap = TMXTiledMap::create("Graphics/GJ_Level2.tmx");
+    tileMap = TMXTiledMap::create(levelFileName);
+    if(!tileMap){
+        /************/
+        // A weak way to do this, but if we are out of levels this is where we can exit the game and do whatever
+        return false;
+    }
+    else {curLevel = levelNum;}
+    
     background = tileMap->getLayer("Background");
     metaLayer = tileMap->getLayer("Meta");
     metaLayer->setVisible(false);
     
+    // *******************
+    // UH-OH! MAGIC NUMBER ALERT!!!
+    // *******************
+    // old landscape version
+    // the puzzle area was rooted at (3/16 * x, 1/6 * y)
+    //    posX = parentOrigin.x + 0.1875*parentVisibleSize.width;
+    //    posY = parentOrigin.y + parentVisibleSize.height/6.0;
     
-    // the puzzle area is rooted at (3/16 * x, 1/6 * y)
-    posX = parentOrigin.x + 0.1875*parentVisibleSize.width;
-    posY = parentOrigin.y + parentVisibleSize.height/6.0;
+    // portrait version
+    posX = parentOrigin.x;
+    posY = parentOrigin.y + parentVisibleSize.height/4.0;
     
     tileMap->setAnchorPoint(Vec2(0, 0));
     Size mapSize = tileMap->getMapSize();
+    float borderSize = 0.0;
     numTiles = ceil(mapSize.height*mapSize.width);
-    tm_scale = 0.375*parentVisibleSize.width/tileMap->getContentSize().width;
+    
+    // going to have to find a better way to scale based on size
+//    tm_scale = 0.375*parentVisibleSize.width/tileMap->getContentSize().width;
+    tm_scale = parentVisibleSize.width/tileMap->getContentSize().width ;
     
     // init our map state tracking data structure
     // actual initial state is loaded/created in the create funcs below
@@ -174,8 +336,9 @@ bool Level::loadLevel(int levelNum, Layer * activeLayer)
     // will change after we have a design fix
     
     tileMap->setScale(tm_scale);
-    tileMap->setPosition(Vec2(posX, posY));
-    activeLayer->addChild(tileMap, 0);
+    tileMap->setPosition(Vec2(posX+borderSize, posY));
+    this->addChild(tileMap, 0);
+    levelComplete = false;
     
     theMap->printState();
     
@@ -187,10 +350,11 @@ bool Level::unloadLevel()
     // THIS NEEDS TO BE FIXED TO UNLOAD THE LEVEL PROPERLY!!!
     //*******************************************************
     
-    // har har - this is far from complete
-    background->release();
-    metaLayer->release();
-    tileMap->release();
+    // What else needs release() or delete()?
+    
+    tileMap->removeAllChildrenWithCleanup(true);
+    tileMap->removeFromParentAndCleanup(true);
+    
     delete theMap;
     
     return true;
@@ -327,7 +491,6 @@ bool Level::createPuzzleTileMove(Sprite * theTile, int direction)
     }
     
     // create a lamdba to execute at the end of the action so our tile can delete itself from the map
-    // yay thread un-safeness
     
     auto checkDelete = CallFuncN::create([&](Node * theTile)
     {
@@ -348,9 +511,7 @@ bool Level::createPuzzleTileMove(Sprite * theTile, int direction)
             
             auto updateAction = CallFunc::create([&](){
                 // this triggers all updates needed for moving remaining tiles to collapse into deleted areas
-                // I don't know why I have to explicitely call it,
-                // scheduleOnce complains about scheduling the selector twice
-                // scheduleOnce(schedule_selector(Level::update), 0.0);
+
                 update(0.0);
             });
             
@@ -364,6 +525,7 @@ bool Level::createPuzzleTileMove(Sprite * theTile, int direction)
         // I'm concerned that the deleteSeq action may still be running when movetiles does its thing,
         // and may try to move a tile just as it is being deleted.
         theMap->setTileNotMoving(tileLoc);
+        if(movesQueued>0){movesQueued--;}
     }
     );
     
@@ -399,6 +561,11 @@ void Level::moveTiles(int dir)
     // construct the movement action in direction dir
     // don't move tiles that are already moving until they stop.
     
+    if (levelComplete) { // buzzoff, you
+        
+        return;
+    }
+    
     //printf("Before: \n");
     //theMap->printState();
     
@@ -415,7 +582,6 @@ void Level::moveTiles(int dir)
     // these sentinels indicate whether we need to check for grouped colors and/or if we need to delete tiles and recurse
     movesDone = false;
     
-    // this will be the site of many step throughs as puzzles get more complex
     if(dir==UP)
     {
         for (x=maxX; x>=0; x--) {
@@ -427,7 +593,8 @@ void Level::moveTiles(int dir)
                 if (theTile != nullptr && !moving && !delMar) {
                     if(createPuzzleTileMove(theTile, dir))
                     {
-                    movesDone = true;
+                        movesDone = true;
+                        movesQueued++;
                     }
                 }
             }
@@ -443,6 +610,7 @@ void Level::moveTiles(int dir)
                     if(createPuzzleTileMove(theTile, dir))
                     {
                         movesDone = true;
+                        movesQueued++;
                     }
                 }
             }
@@ -458,6 +626,7 @@ void Level::moveTiles(int dir)
                     if(createPuzzleTileMove(theTile, dir))
                     {
                         movesDone = true;
+                        movesQueued++;
                     }
                 }
             }
@@ -473,6 +642,7 @@ void Level::moveTiles(int dir)
                     if(createPuzzleTileMove(theTile, dir))
                     {
                         movesDone = true;
+                        movesQueued++;
                     }
                 }
             }
@@ -493,20 +663,29 @@ void Level::moveTiles(int dir)
 
 void Level::update(float dt)
 {
-    moveTiles(curDirection);
+    if(isCurrentLevelComplete() && !faulted)
+    {
+        // run end of level function]
+        printf("Level %i complete. Preparing new level...", curLevel);
+        scheduleOnce(schedule_selector(Level::endLevel), 0.0);
+    }
+    
+    // we only want to move tiles if queued moves are already complete
+    if (movesQueued ==0) {
+        moveTiles(curDirection);
+    }
 }
 
 void Level::endOfMoveChecks(int dir)
 {
-    // TODOs: do scoring?, if level is complete, ask parent to unload the level
+    // if level is complete, ask parent to unload the level
     // check to see if level is complete
     
     bool remainingOccupiedTiles = false;
     
     printf("movesDone = %i\n", movesDone);
-
     
-    // clear deleted tiles
+    // check for occupied tiles
     for (int j=0; j<theMap->sizeX; j++) {
         for (int i=0; i<theMap->sizeY; i++) {
 
@@ -519,8 +698,85 @@ void Level::endOfMoveChecks(int dir)
     
     if (!remainingOccupiedTiles) {
         // Our end-of-level code goes here
-        CCLOG("Level Complete!");
+        levelComplete = true;
+        curDirection = NO_DIRECTION;
+        printf("Level %i Complete!\n", curLevel);
+
+        // run end of level function - this will schedule our endLevel method
+        // BUG! IF THERE IS NO CURRENT LEVEL, IT CANNOT HAVE A PARENT?
+        // CRASH AND BURNS is what
+        printf("Preparing new level...");
+        tileMap->getParent()->scheduleUpdate();
     }
- 
+    
+}
+
+void Level::closeLevel(void)
+{
+    // To do: what needs to happen between levels?
+    // probably unload level data, update event listeners, etc.
+    printf("Closing level...\n");
+    
+    unloadLevel();
+}
+
+bool Level::nextLevel(void)
+{
+    curLevel++;
+    
+    // we should check the level against a max, but I don't know how to determine that yet.
+    // for now, we'll let that fail happen in Level::initLevel()
+    return loadLevel(curLevel);
+}
+
+void Level::endLevel(float dt)
+{
+    
+    // run the modal layer here.
+    // turn off touches
+    
+    touchListener->setEnabled(false);
+    
+    victoryScreen = Victory::create();
+    
+    this->addChild(victoryScreen, 1);
+    victoryScreen->runAction(FadeTo::create(0.25, 125));
+    
+}
+
+bool Level::isCurrentLevelComplete(void)
+{
+    // this is true
+    levelComplete = true;
+    
+    // unless we find occupied tiles
+
+    for (int j=0; j<theMap->sizeX; j++) {
+        for (int i=0; i<theMap->sizeY; i++) {
+            
+            // check if there are any occupied tiles
+            if (theMap->isTileOccupied(Vec2(i,j))) {
+                levelComplete = false;
+            }
+        }
+    }
+    return levelComplete;
+}
+
+void Level::endVictoryScreen(float dt)
+{   // Swap levels
+    closeLevel();
+
+    if(!nextLevel())
+    {
+        printf("Error opening level %i", curLevel);
+        faulted = true;
+    }
+    
+    // get rid of the victory screen
+    victoryScreen->removeFromParentAndCleanup(true);
+    
+    // re-enable touch
+    touchListener->setEnabled(true);
     
 }
