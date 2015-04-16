@@ -1,5 +1,5 @@
-#ifndef __HELLOWORLD_SCENE_H__
-#define __HELLOWORLD_SCENE_H__
+#ifndef __GRAVITYJAMROOT_H__
+#define __GRAVITYJAMROOT_H__
 
 #include "cocos2d.h"
 #include "GJ_Settings.h"
@@ -79,4 +79,4 @@ private:
 
 };
 
-#endif // __HELLOWORLD_SCENE_H__
+#endif // __GRAVITYJAMROOT_H__
