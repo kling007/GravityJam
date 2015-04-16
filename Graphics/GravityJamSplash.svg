@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="640"
+   height="960"
+   id="svg3973"
+   version="1.1"
+   inkscape:version="0.48.5 r10040"
+   sodipodi:docname="GravityJamSplash.svg"
+   inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Gravity_Jam/Resources/HelloWorld.png"
+   inkscape:export-xdpi="45"
+   inkscape:export-ydpi="45">
+  <defs
+     id="defs3975" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.66830744"
+     inkscape:cx="445.80309"
+     inkscape:cy="283.44125"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1504"
+     inkscape:window-height="1165"
+     inkscape:window-x="171"
+     inkscape:window-y="155"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata3978">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-92.362183)">
+    <rect
+       style="fill:#1a1a1a;fill-opacity:1;fill-rule:nonzero;stroke:#808080;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:0;stroke-opacity:1;stroke-dasharray:none"
+       id="rect3024"
+       width="640"
+       height="960"
+       x="0"
+       y="92.362183"
+       rx="2.5913649"
+       ry="0"
+       inkscape:export-filename="/Users/gmklingOld/Documents/Projects/Cocos_Projects/Test/Test/Graphics/Icon-Small@2x.png"
+       inkscape:export-xdpi="5.0700002"
+       inkscape:export-ydpi="5.0700002" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot2985"
+       style="font-size:108px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#2c82c9;fill-opacity:1;stroke:none;font-family:Sofachrome;-inkscape-font-specification:Sofachrome"
+       transform="matrix(0,1,-1,0,994.34075,-148.76244)"><flowRegion
+         id="flowRegion2987"><rect
+           id="rect2989"
+           width="1011.9789"
+           height="386.43082"
+           x="213.49767"
+           y="532.95538"
+           style="font-size:108px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#2c82c9;fill-opacity:1;font-family:Sofachrome;-inkscape-font-specification:Sofachrome" /></flowRegion><flowPara
+         id="flowPara2991"
+         style="font-size:108px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#2c82c9;fill-opacity:1;font-family:Sofachrome;-inkscape-font-specification:Sofachrome">Gravity</flowPara><flowPara
+         style="font-size:108px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;text-align:center;line-height:125%;writing-mode:lr-tb;text-anchor:middle;fill:#2c82c9;fill-opacity:1;font-family:Sofachrome;-inkscape-font-specification:Sofachrome"
+         id="flowPara3020">JAM</flowPara></flowRoot>  </g>
+</svg>

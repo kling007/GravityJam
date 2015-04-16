@@ -79,7 +79,7 @@ public:
     
     // utility
     void moveTileState(Vec2 fromLoc, Vec2 toLoc);
-    void copyTileState(Vec2 fromLoc, Vec2 toLoc);
+    // void copyTileState(Vec2 fromLoc, Vec2 toLoc);
     void clearTileState(Vec2 loc);
     bool checkTileToDeleteMark(Vec2 loc);
     void setAsDeleted(Vec2 loc);

@@ -23,6 +23,7 @@
 
 #include "cocos2d.h"
 #include "GJ_TileState.h"
+#include "GJ_Victory.h"
 
 USING_NS_CC;
 
@@ -37,29 +38,44 @@ class Level : public cocos2d::Layer
     
 public:
     // standard methods to implement
+    static cocos2d::Scene* createScene();
     virtual bool init();
+    
+    // Touch handling
+    bool setupTouches();
+    int getTouchDirection();
+    EventListenerTouchOneByOne * touchListener;
+    Vec2 touchBegin;
+    Vec2 touchEnd;
     
     // tile creation
     bool createPuzzleTiles();
     bool createPassiveTiles();
     
-    // levels
-    bool loadLevel(int levelNum, Layer * activeLayer);
+    // level mgmt
+    int currentLevel();
+    bool setlevel(int newLevel);
+    bool reloadLevel(Layer * activeLayer);
+    bool loadLevel(int levelNum);
     bool unloadLevel();
-    
+    void closeLevel(void);
+    bool nextLevel(void);
+    void endLevel(float dt);
+    void endVictoryScreen(float dt);
    
-    // movement - what can be pushed into MapState class?
-    
+    // position - should some/all of this be pushed into MapState class?
     Vec2 tileCoordForPosition(Vec2 position);
     Vec2 getPxforCoord(Vec2 inCoord);
     Vec2 getAdjacentPxCoord(Vec2 inCoord, int direction);
     Vec2 getAdjacentCoord(Vec2 inCoord, int direction);
+    
+    // moving tiles
     bool createPuzzleTileMove(Sprite * theTile, int direction);
     void setActionForPuzzleTile(Sprite * theTile, Action * theAction);
-    bool checkForTileGroups(void);
     void moveTiles(int dir);
     void update(float dt);
     void endOfMoveChecks(int dir);
+    bool isCurrentLevelComplete(void);
     
     // instance vars
     int curLevel;
@@ -69,9 +85,10 @@ public:
     Size parentVisibleSize;
     Vec2 parentOrigin;
     bool movesDone;
+    int  movesQueued;
+    bool levelComplete;
+    bool faulted;
     float timeElapsed;
-    // visible to the Director, where the nodes are put into the mix
-    Layer * theLayer;
     
     // Cocos2d macro
     CREATE_FUNC(Level);
@@ -84,7 +101,7 @@ private:
     
     // MapState
     MapState * theMap;
-  
+    Victory * victoryScreen;
 };
 
 #endif /* defined(__Gravity_Jam__GJ_Level__) */
