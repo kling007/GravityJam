@@ -11,6 +11,8 @@
 
 #include <stdio.h>
 #include <string>
+#include <sstream>
+#include <ctime>
 
 using std::string;
 
@@ -20,6 +22,7 @@ using std::string;
 class Log {
     
     string pathToLog;
+    std::stringstream logLineStream;
     std::ofstream * logFile;
     
 public:
@@ -37,7 +40,8 @@ public:
     void gameMsg(string s);
     
     // utility
-    bool setLogPath(string logPath); //does this redirect the log file thus far, or create a new one at the logPath
+    std::string getLinePrefix(void); // <timeStamp><dateStamp>
+    bool setLogPath(string logPath); // does this redirect the log file thus far, or create a new one at the logPath
     bool closeLog(void);
     
 private:
@@ -45,7 +49,7 @@ private:
     bool initLogFile(void);
     bool getLogFilePath(void);
     
-    double logLineNumber;
+    double logLineNumber=0;
 };
 
 #endif /* defined(__Gravity_Jam__GJ_Log__) */
