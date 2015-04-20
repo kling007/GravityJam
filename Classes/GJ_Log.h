@@ -27,7 +27,7 @@ class Log {
     
 public:
     
-    // constructors
+    // constructors - we should only make this if we know where it goes
     Log(std::ofstream logStream, string logPath);
     Log(string logPath);
     
@@ -41,13 +41,12 @@ public:
     
     // utility
     std::string getLinePrefix(void); // <timeStamp><dateStamp>
-    bool setLogPath(string logPath); // does this redirect the log file thus far, or create a new one at the logPath
     bool closeLog(void);
     
 private:
     bool logMsg(string s);
     bool initLogFile(void);
-    bool getLogFilePath(void);
+    std::string getLogFilePath(void);
     
     double logLineNumber=0;
 };

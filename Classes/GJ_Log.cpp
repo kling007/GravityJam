@@ -8,6 +8,16 @@
 
 #include "GJ_Log.h"
 
+std::string Log::getLogFilePath()
+{
+    return pathToLog;
+}
+
+Log::Log(std::string LogPath)
+{
+    
+}
+
 
 
 std::string Log::getLinePrefix()
@@ -15,6 +25,12 @@ std::string Log::getLinePrefix()
     // the tm struct
     time_t t = time(0);
     struct tm * now = localtime( & t );
+    
+    // milliseconds
+//    using namespace std::chrono;
+//    milliseconds ms = duration_cast< milliseconds >(
+//                                                    high_resolution_clock::now().time_since_epoch()
+//                                                    );
     
     // collect line number, time/date stamp
     std::stringstream linePrefix;
