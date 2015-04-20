@@ -10,7 +10,6 @@
 #define __GravityJam__GJ_HUD__
 
 #include "cocos2d.h"
-#include "GJ_Score.h"
 #include <string>
 #include "GJ_Settings.h"
 
@@ -25,7 +24,6 @@ public:
     std::string scoreLabelString;
     std::string scoreString;
     
-    Score theScore;
     int level;
     int stage;
     

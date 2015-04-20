@@ -32,8 +32,6 @@
 		2A2CE02F19E7BB97003EEB14 /* Graphics in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE02E19E7BB97003EEB14 /* Graphics */; };
 		2A2CE03419EB3A4B003EEB14 /* GJ_HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE03019EB3A4B003EEB14 /* GJ_HUD.cpp */; };
 		2A2CE03519EB3A4B003EEB14 /* GJ_HUD.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE03019EB3A4B003EEB14 /* GJ_HUD.cpp */; };
-		2A2CE03619EB3A4B003EEB14 /* GJ_Score.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE03219EB3A4B003EEB14 /* GJ_Score.cpp */; };
-		2A2CE03719EB3A4B003EEB14 /* GJ_Score.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE03219EB3A4B003EEB14 /* GJ_Score.cpp */; };
 		2A2CE03A19EB55C8003EEB14 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE03819EB55C8003EEB14 /* VisibleRect.cpp */; };
 		2A2CE03B19EB55C8003EEB14 /* VisibleRect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2A2CE03819EB55C8003EEB14 /* VisibleRect.cpp */; };
 		2A2CE03D19EB8B31003EEB14 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 2A2CE03C19EB8B31003EEB14 /* fonts */; };
@@ -269,8 +267,6 @@
 		2A2CE02E19E7BB97003EEB14 /* Graphics */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Graphics; sourceTree = "<group>"; };
 		2A2CE03019EB3A4B003EEB14 /* GJ_HUD.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_HUD.cpp; path = ../Classes/GJ_HUD.cpp; sourceTree = "<group>"; };
 		2A2CE03119EB3A4B003EEB14 /* GJ_HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_HUD.h; path = ../Classes/GJ_HUD.h; sourceTree = "<group>"; };
-		2A2CE03219EB3A4B003EEB14 /* GJ_Score.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GJ_Score.cpp; path = ../Classes/GJ_Score.cpp; sourceTree = "<group>"; };
-		2A2CE03319EB3A4B003EEB14 /* GJ_Score.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GJ_Score.h; path = ../Classes/GJ_Score.h; sourceTree = "<group>"; };
 		2A2CE03819EB55C8003EEB14 /* VisibleRect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VisibleRect.cpp; path = ../Classes/VisibleRect.cpp; sourceTree = "<group>"; };
 		2A2CE03919EB55C8003EEB14 /* VisibleRect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VisibleRect.h; path = ../Classes/VisibleRect.h; sourceTree = "<group>"; };
 		2A2CE03C19EB8B31003EEB14 /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
@@ -406,8 +402,6 @@
 				1AFAF8B616D35DE700DB1158 /* GravityJamRoot.h */,
 				2A2CE03019EB3A4B003EEB14 /* GJ_HUD.cpp */,
 				2A2CE03119EB3A4B003EEB14 /* GJ_HUD.h */,
-				2A2CE03219EB3A4B003EEB14 /* GJ_Score.cpp */,
-				2A2CE03319EB3A4B003EEB14 /* GJ_Score.h */,
 				2A2CE03819EB55C8003EEB14 /* VisibleRect.cpp */,
 				2A2CE03919EB55C8003EEB14 /* VisibleRect.h */,
 				2A2CE04019EC7169003EEB14 /* GJ_Settings.h */,
@@ -797,7 +791,6 @@
 				2A3971291ADFA7A500BCD820 /* GJ_Log.cpp in Sources */,
 				2A190A4B1A23F05E0019AE43 /* GJ_Victory.cpp in Sources */,
 				2A3971201ADD104200BCD820 /* sqlite3.c in Sources */,
-				2A2CE03619EB3A4B003EEB14 /* GJ_Score.cpp in Sources */,
 				2A2CE03A19EB55C8003EEB14 /* VisibleRect.cpp in Sources */,
 				2A6C643119F0E5FA000E50B6 /* GJ_Level.cpp in Sources */,
 				1AFAF8B716D35DE700DB1158 /* AppDelegate.cpp in Sources */,
@@ -825,7 +818,6 @@
 				2A3971211ADD104200BCD820 /* sqlite3.c in Sources */,
 				2A6C643219F0E5FA000E50B6 /* GJ_Level.cpp in Sources */,
 				2A2CE04619EC8706003EEB14 /* GJ_Settings.cpp in Sources */,
-				2A2CE03719EB3A4B003EEB14 /* GJ_Score.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
